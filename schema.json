@@ -29,6 +29,11 @@
         "type": "object",
         "required": ["attribute", "requirements"],
         "properties": {
+          "code": {
+            "type": "string",
+            "required": true,
+            "description": "A string identifier for the rule to use in error messages and other feedback"
+          },
           "attribute": {
             "type": "string",
             "required": ["CITIZENSHIP", "KYC/AML", "ACCREDITED_STATUS", "QUALIFIED_PURCHASER"],
