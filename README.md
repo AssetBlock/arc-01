@@ -30,7 +30,7 @@ Security tokens have an added layer of complexity that requires any transfer or 
 The standard for each step of a token's lifecycle is detailed below:
 
 1. [Issuer - Creating a Token](#creating-a-token)
-1. [Issuer - Distribute Token](#distributing-a-token)
+1. [Issuer - Distribute Token](#primary-distribution-of-a-token)
 1. [Investor - Request Transfer](#requesting-a-transfer)
 1. [Issuer - Approve Transfer](#approving-a-transfer)
 1. [Issuer - Deny Transfer](#denying-a-transfer)
@@ -81,7 +81,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 
 
 
-### 2. Distributing a Token
+### 2. Primary Distribution of a Token
 
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
@@ -106,7 +106,7 @@ Example:
 
 ### 3. Requesting a Transfer
 
-Investors must indicate to the issuer that they are looking to trade tokens to another investor. The issuer must approve or deny a request.
+Investors must indicate to the compliance manager that they are looking to trade tokens to another investor. The compliance manager must approve or deny each request.
 
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
@@ -119,12 +119,11 @@ Transaction Part 1 Example:
 ```js
 {
   from: 'investor1-public-address',
-  to: 'issuer-public-address',
+  to: 'compliance-manager-public-address',
   amt: 0,
   fee: 1,
   notes: {
     quantity: 50,
-    toAddressTotal: 300,
     toAddress: 'investor2-public-address',
     tokenSymbol: 'MYT',
     details: {},
@@ -139,7 +138,6 @@ Transaction Part 1 Example:
 |transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
 |transferTotal|Integer|true| |
 |fromAddress|String|true||
-|fromAddressTotal|String|true||
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
@@ -147,7 +145,7 @@ Transaction Part 1 Example:
 Transaction Part 2 Example: 
 ```js
 {
-  from: 'issuer-public-address',
+  from: 'compliance-manager-public-address',
   to: 'investor2-public-address',
   amt: 0,
   fee: 1,
@@ -155,7 +153,6 @@ Transaction Part 2 Example:
     transferStatus: 'APPROVED',
     transferTotal: 50,    
     fromAddress: 'investor1-public-address',
-    fromAddressTotal: 250,
     tokenSymbol: 'MYT',
     details: {},
   }
@@ -169,7 +166,6 @@ Transaction Part 2 Example:
 |transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
 |transferTotal|Integer|true| |
 |fromAddress|String|true||
-|fromAddressTotal|String|true||
 |error|Object<Error>|true| must match error specification tied to [compliance specification](./compliance.md) |
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
@@ -177,7 +173,7 @@ Transaction Part 2 Example:
 Transaction Part 2 Example: 
 ```js
 {
-  from: 'issuer-public-address',
+  from: 'compliance-manager-public-address',
   to: 'investor2-public-address',
   amt: 0,
   fee: 1,
@@ -189,7 +185,6 @@ Transaction Part 2 Example:
       errorMessage: 'Error code 14: Recipient KYC compliance status missing.',
     }
     fromAddress: 'investor1-public-address',
-    fromAddressTotal: 300,
     tokenSymbol: 'MYT',
     details: {},
   }
