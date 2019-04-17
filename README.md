@@ -16,7 +16,7 @@ For the purposes of the doc below we are using the following key terms:
 
 **Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-public-address` account in the examples below. 
 
-**Compliance Manager**: A licensed authoritative member of the issuer who has authority to manually verify or work with a trusted third party who will verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](compliance). Controls the private keys of the `issuer-public-address` account in the examples below.
+**Compliance Manager**: A licensed authoritative member of the issuer who has authority to manually verify or work with a trusted third party who will verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). Controls the private keys of the `issuer-public-address` account in the examples below.
 
 
 ## Compliance Ruleset
