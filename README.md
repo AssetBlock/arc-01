@@ -37,11 +37,11 @@ Before a token can be created, an issuer must either publish or reference a publ
 The standard for each step of a token's lifecycle is detailed below:
 
 1. [Issuer - Creating a Token](#creating-a-token)
-1. [Issuer - Distribute Token](#primary-distribution-of-a-token)
-1. [Investor - Request Transfer](#requesting-a-transfer)
-1. [Issuer - Approve Transfer](#approving-a-transfer)
-1. [Issuer - Deny Transfer](#denying-a-transfer)
+1. [Issuer or Investor - Transfer Tokens](#requesting-a-transfer)
+1. [Compliance Manager - Approve Transfer](#approving-a-transfer)
+1. [Compliance Manager - Deny Transfer](#denying-a-transfer)
 1. [Issuer - Update Token](#updating-a-token)
+1. [Issue - Split Token](#splitting-a-token)
 
 ### 1. Creating a Token
 
@@ -54,7 +54,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 |tokenSymbol|String|true| `length >= 3 && <= 5`| The symbol of the token for exchange and unique identification purposes |
 |tokenQuantity|Int|true| ` > 0`|Total tokens available at initial offering|
 |decimalPlaces|Int|false| `length<= 18`| Number of decimal places to honor|
-|compliance|String|true| | Transaction ID where compliance spec was published within notes field. See [compliance specification](./compliance.md) for details |
+|compliance|Object|true| | Contains Transaction ID where compliance spec was published within notes field and an array of at least one compliance manager address. See [compliance specification](./compliance.md) for details |
 |details|Object|false|| A utility field for additional metadata for use by the issuer or to provide more information|
 
 
@@ -70,7 +70,10 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
     tokenSymbol: 'MYT',
     tokenQuantity: 10000,
     decimalPlaces: 16,
-    compliance: 'compliance-tx-id',
+    compliance: {
+      managers: ['compliance-manager-address'],
+      specLocation: 'compliance-tx-id',
+    },
     details: {}
   }
 }
@@ -79,35 +82,9 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 #### Additional Notes / Restrictions
 * A single issuer MUST NOT create more than one token with the same symbol
 
+### 2. Requesting a Transfer
 
-### 2. Primary Distribution of a Token
-An issuer may distribute tokens to investors after first verifying that a compliance check has been performed and has been resolved.
-
-#### Specification
-|Key|Type|Required|Additional Validation|
-|----|----|----|----|
-|quantity|Int|true| 
-|tokenSymbol|String|true| `length >= 3 && length <= 5 `|
-|details|Object|false||
-
-#### Example Algorand transaction payload:
-```js
-{
-  from: 'issuer-public-address',
-  to: 'investor1-public-address',
-  amt: 0,
-  fee: 1,
-  notes: {
-    quantity: 300,
-    tokenSymbol: 'MYT',
-    details: {},
-  }
-}
-```
-
-### 3. Requesting a Transfer
-
-Investors must indicate to the compliance manager that they are looking to trade tokens to another investor. The compliance manager must approve or deny each request.
+In order to issue or transfer tokens the issuer or investor must indicate to the compliance manager that they are looking to transfer tokens. The compliance manager must approve or deny each request. This includes primary issuance and secondary market transactions.
 
 #### Specification
 |Key|Type|Required|Additional Validation|
@@ -120,7 +97,7 @@ Investors must indicate to the compliance manager that they are looking to trade
 #### Example Algorand transaction payload:
 ```js
 {
-  from: 'investor1-public-address',
+  from: 'investor1-public-address|issuer-public-address',
   to: 'compliance-manager-public-address',
   amt: 0,
   fee: 1,
@@ -133,7 +110,7 @@ Investors must indicate to the compliance manager that they are looking to trade
 }
 ```
 
-### 4. Approving a Transfer
+### 3. Approving a Transfer
 
 #### Specification
 |Key|Type|Required|Additional Validation|
@@ -141,6 +118,7 @@ Investors must indicate to the compliance manager that they are looking to trade
 |transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
 |transferTotal|Integer|true| |
 |fromAddress|String|true||
+|txnRef|String||Transaction id of transfer request|
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
@@ -155,6 +133,7 @@ Investors must indicate to the compliance manager that they are looking to trade
   notes: {
     transferStatus: 'APPROVED',
     transferTotal: 50,    
+    txnRef: `transaction-id-of-transfer-request`
     fromAddress: 'investor1-public-address',
     tokenSymbol: 'MYT',
     details: {},
@@ -162,7 +141,7 @@ Investors must indicate to the compliance manager that they are looking to trade
 }
 ```
 
-### 5. Denying a Transfer
+### 4. Denying a Transfer
 
 #### Specification
 |Key|Type|Required|Additional Validation|
@@ -170,7 +149,8 @@ Investors must indicate to the compliance manager that they are looking to trade
 |transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
 |transferTotal|Integer|true| |
 |fromAddress|String|true||
-|error|Object<Error>|true| must match error specification tied to [compliance specification](./compliance.md) |
+|txnRef|String||Transaction id of transfer request|
+|errorCode|String|true| must match error specification code defined in [compliance specification rules](./compliance.md) |
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
@@ -183,14 +163,65 @@ Investors must indicate to the compliance manager that they are looking to trade
   fee: 1,
   notes: {    
     transferStatus: 'DENIED',
+    txnRef: `transaction-id-of-transfer-request`
     transferTotal: 0,
-    error: {
-      errorCode: 14,
-      errorMessage: 'Error code 14: Recipient KYC compliance status missing.',
-    }
+    errorCode: 'RULE_01',
     fromAddress: 'investor1-public-address',
     tokenSymbol: 'MYT',
     details: {},
+  }
+}
+```
+
+
+### 5. Updating Token Compliance
+
+#### Specification
+|Key|Type|Required|Additional Validation|
+|----|----|----|----|
+|compliance|Object|true| | Contains Transaction ID where compliance spec was published within notes field and an array of at least one compliance manager address. See [compliance specification](./compliance.md) for details |
+
+#### Example Algorand transaction payload:
+```js
+{
+  from: 'issuer-public-address',
+  to: 'compliance-manager-public-address',
+  amt: 0,
+  fee: 1,
+  notes: {    
+    compliance: {
+      managers: ['compliance-manager-public-address'],
+      specLocation: 'compliance-tx-id',
+    },    
+  }
+}
+```
+
+
+### 5. Updating Token Distribution
+
+#### Specification
+|Key|Type|Required|Additional Validation|
+|----|----|----|----|
+
+#### Example Algorand transaction payload:
+```js
+{
+  from: 'issuer-public-address',
+  to: 'compliance-manager-public-address',
+  amt: 0,
+  fee: 1,
+  notes: {    
+    /* Split */
+    type: 'split,
+    ratio: '1to3',
+    // Issue More Equity
+    type: 'issue-more-equity',
+    qty: 5000,    
+    // Burn After Buyback    
+    type: 'burnAfterBuyback',
+    txnId: 'transaction-id-of-approved-buyback',
+    qty: 50    
   }
 }
 ```
