@@ -7,6 +7,17 @@ Security tokens have an added layer of complexity that requires any transfer or 
 
 The goal is to create a generic standard ruleset specification so that any issuer can publish and refer to a pre-defined set of rules. Ideally, these validation rules stored on-chain would enable them to be used ubiquitously by any issuer of security tokens.
 
+#### Compliance specifications
+
+Issuers define their own compliance specifications using a valid 
+document that adheres to the latest ARC-01 json standard:
+
+[`ARC-01 JSON Schema Standard`](./schema.json)
+
+Example Compliance specification:
+
+[assetblock-compliance-specification-1.json](./complianceSpec1.json)
+
 ### Key Terms
 
 **Issuer**: The creator and owner of the compliance documentation standard. Controls the private keys of the `issuer-public-address` account in the examples below.
@@ -37,9 +48,8 @@ Publishing a compliance specification requires the creator to maintain a publicl
   amt: 0,
   fee: 1,
   notes: {    
-    specUrl: '',
-    specVersion: 1,
-    specChecksum: '120EA8A25E5D487BF68B5F7096440019',
+    specUri: '',
+    specChecksum: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',    
     details: {},
   }
 }
@@ -53,9 +63,8 @@ Updating a compliance specification requires the creator to update unique values
 #### Specification
 |Key|Type|Required|Validation|Description|
 |----|----|----|----|----|
-|specUrl|String|true|||
-|specVersion|String|true|||
-|specChecksum|String|true|Checksum type must be of type `SHA-3`. The length [`224`, `256`, `384`, `512`] must be followed by a `:` character must precede checksum value||
+|specUri|String|true|Must be a valid `JSON` file following the `ARC-01 document specification` json schema |Public url to compliance spec details, error handling, and description |
+|specChecksum|String|true|`SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value||
 |details|Object|true|||
 
 #### Example Algorand transaction payload:
@@ -66,8 +75,7 @@ Updating a compliance specification requires the creator to update unique values
   amt: 0,
   fee: 1,
   notes: {    
-    specUrl: '',
-    specVersion: 2,
+    specUri: 'assetblock-compliance-specification-1.json',
     specChecksum: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
     details: {},
   }

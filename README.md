@@ -17,7 +17,7 @@ For the purposes of the doc below we are using the following key terms:
 
 **Token**: Digitial representations functioning as a traditional security asset.
 
-**Issuer**: The creator and owner of the token who controls distrubutions of it based on a particular set of compliance rules. Controls the private keys of the `issuer-public-address` account in the examples below.
+**Issuer**: The creator and owner of the token who controls distributions of it based on a particular set of compliance rules. Controls the private keys of the `issuer-public-address` account in the examples below.
 
 **Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-public-address` account in the examples below. 
 

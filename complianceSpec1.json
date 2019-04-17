@@ -1,0 +1,39 @@
+{
+  "schema": "https://assetblock.com/arc-01.json",
+  "name": "ARC-01 Security Token",
+  "version": 1,
+  "keywords": "real estate securities, REG D",
+  "rules": [
+    {
+      "attribute": "CITIZENSHIP",
+      "requirements": [
+        { "is": "US" }
+      ]
+    },
+    {
+      "attribute": "KYC/AML",
+      "requirements": [
+        { "is": "PASS" }
+      ]
+    },    
+    {
+      "attribute": "ACCREDITED_STATUS",
+      "requirements": [
+        { 
+          "is": "ACCREDITED_INVESTOR" ,
+          "condition": {
+            "attribute": "ACCREDITED_INVESTOR_COUNT",
+            "max": 99 
+          }
+        },        
+        {
+          "is": "QUALIFIED_PURCHASER",
+          "condition": {
+            "attribute": "QUALIFIED_PURCHASER_COUNT",
+            "max": 1899 
+          }          
+        },
+      ]   
+    }    
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "$id": "https://assetblock.com/arc-01.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ARC-01 Security Token Initial Investor Offering",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "description": "The url of the schema for validating the specification"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the specification"
+    },
+    "version": {
+      "type": "number",
+      "description": "Version of the specification"
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Descriptive keywords to describe the specification"
+    },
+    "rules": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/rule" }
+    },
+    "definitions": {
+      "rule": {
+        "type": "object",
+        "required": ["attribute", "requirements"],
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "required": ["CITIZENSHIP", "KYC/AML", "ACCREDITED_STATUS", "QUALIFIED_PURCHASER"],
+            "description": "A valid and recognized attribute name for an investor"
+          },
+          "requirements": { "$ref": "#/definitions/requirements" }
+        }
+      },
+      "requirements": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/requirement" }    
+      },
+      "requirement": {
+        "type": "object",
+        "properties": {
+          "is": {
+            "type": "string",
+            "description": "Equality validation"
+          },
+          "condition": {
+            
+          }    
+      }       
+    },
+  }
+}
