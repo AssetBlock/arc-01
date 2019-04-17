@@ -124,6 +124,7 @@ Transaction Part 1 Example:
   fee: 1,
   notes: {
     quantity: 50,
+    toAddressTotal: 300,
     toAddress: 'investor2-public-address',
     tokenSymbol: 'MYT',
     details: {},
