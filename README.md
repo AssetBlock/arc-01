@@ -16,12 +16,12 @@ For the purposes of the doc below we are using the following key terms:
 
 **Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-public-address` account in the examples below. 
 
-**Compliance Manager**: A licensed authoritative member of the issuer who has authority to manually verify or work with a trusted third party who will verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). Controls the private keys of the `issuer-public-address` account in the examples below.
+**Compliance Manager**: A member of the issuer who has authority to manually verify or work with a trusted third party who verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). Controls the private keys of the `issuer-public-address` account in the examples below.
 
 
 ## Compliance Ruleset
 
-Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow a set of compliance rules. To define these rules at the time of a token's issuance, follow the [compliance specification](compliance)
+Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow a set of compliance rules. To define these rules at the time of a token's issuance, follow the [compliance specification](./compliance.md)
 
 
 ## Token Lifecycle
@@ -45,7 +45,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 |tokenSymbol|String|true| `length >= 3 && <= 5`| The symbol of the token for exchange and unique identification purposes |
 |tokenQuantity|Int|true| ` > 0`|Total tokens available at initial offering|
 |decimalPlaces|Int|false| `length<= 18`| Number of decimal places to honor|
-|compliance|[`Object<Compliance>`](compliance)|false| | See [compliance specification](compliance) for details |
+|compliance|[`Object<Compliance>`](./compliance.md)|false| | See [compliance specification](./compliance.md) for details |
 |details|Object|false|| A utility field for additional metadata for use by the issuer or to provide more information|
 
 
@@ -166,7 +166,7 @@ Transaction Part 2 Example:
 |transferTotal|Integer|true| |
 |fromAddress|String|true||
 |fromAddressTotal|String|true||
-|error|Object<Error>|true| must match error specification tied to [compliance specification](compliance) |
+|error|Object<Error>|true| must match error specification tied to [compliance specification](./compliance.md) |
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
