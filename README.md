@@ -6,25 +6,34 @@ Unlike tokens on a smart contract-enabled platform, there is no support for nati
 
 Instead, we must use the transaction `notes` field as the primary tool for defining tokens. For some security tokens, we must pass requests for transfers to a central token issuer who is responsible for approving the transfer based on the compliance rules associated with the token.
 
-### Key Terms In This Proposal
+### Key Terms
 
-For the purposes of the doc below we are labelling them as the following:
+For the purposes of the doc below we are using the following key terms:
 
 **Token**: Digitial representations functioning as a traditional security asset.
 
-**Issuer**: The creator and owner of the token who controls distrubutions of it based on a particular set of compliance rules. Controls the private keys of the `issuer-public-address` in the examples below.
+**Issuer**: The creator and owner of the token who controls distrubutions of it based on a particular set of compliance rules. Controls the private keys of the `issuer-public-address` account in the examples below.
 
-**Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of the `investor-public-address` in the examples below. 
+**Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-public-address` account in the examples below. 
+
+**Compliance Manager**: A licensed authoritative member of the issuer who has authority to manually verify or work with a trusted third party who will verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](compliance). Controls the private keys of the `issuer-public-address` account in the examples below.
+
+
+## Compliance Ruleset
+
+Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow a set of compliance rules. To define these rules at the time of a token's issuance, follow the [compliance specification](compliance)
+
 
 ## Token Lifecycle
 The standard for each step of a token's lifecycle is detailed below:
 
-1. [Create a New Token](#creating-a-token)
-1. [Distribute Token](#distributing-a-token)
-1. [Request Transfer](#requesting-a-transfer)
-1. [Approve Transfer](#approving-a-transfer)
+1. [Issuer - Creating a Token](#creating-a-token)
+1. [Issuer - Distribute Token](#distributing-a-token)
+1. [Investor - Request Transfer](#requesting-a-transfer)
+1. [Issuer - Approve Transfer](#approving-a-transfer)
+1. [Issuer - Deny Transfer](#denying-a-transfer)
 
-### Creating a Token
+### 1. Creating a Token
 
 To mint a new token, an issuer creates a "genesis transaction" wherein the compliance details, token details, and available token quantities are outlined. This will serve as a set of rules for future transactions to use.
 
@@ -36,7 +45,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 |tokenSymbol|String|true| `length >= 3 && <= 5`| The symbol of the token for exchange and unique identification purposes |
 |tokenQuantity|Int|true| ` > 0`|Total tokens available at initial offering|
 |decimalPlaces|Int|false| `length<= 18`| Number of decimal places to honor|
-|compliance|[`Object<Compliance>`](compliance)|false| | A separate payload specification with detailed compliance requirement specifications [view spec](compliance) |
+|compliance|[`Object<Compliance>`](compliance)|false| | See [compliance specification](compliance) for details |
 |details|Object|false|| A utility field for additional metadata for use by the issuer or to provide more information|
 
 
@@ -69,7 +78,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 
 
 
-### Distributing a Token
+### 2. Distributing a Token
 
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
@@ -85,15 +94,16 @@ Example:
   amt: 0,
   fee: 1,
   notes: {
-    quantity: 100,
+    quantity: 300,
     tokenSymbol: 'MYT',
     details: {},
   }
 }
 ```
 
-### Transfer Requests Directed to Compliance Manager
+### 3. Requesting a Transfer
 
+Investors must indicate to the issuer that they are looking to trade tokens to another investor. The issuer must approve or deny a request.
 
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
@@ -118,10 +128,14 @@ Transaction Part 1 Example:
 }
 ```
 
+### 4. Approving a Transfer
+
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
-|quantity|Integer|true| |
+|status|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
+|transferTotal|Integer|true| |
 |fromAddress|String|true||
+|fromAddressTotal|String|true||
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
@@ -134,8 +148,42 @@ Transaction Part 2 Example:
   amt: 0,
   fee: 1,
   notes: {
-    quantity: 50,    
+    status: 'APPROVED',
+    transferTotal: 50,    
     fromAddress: 'investor1-public-address',
+    fromAddressTotal: 250,
+    tokenSymbol: 'MYT',
+    details: {},
+  }
+}
+```
+
+### 5. Denying a Transfer
+
+|Key|Type|Required|Additional Validation|
+|----|----|----|----|
+|transferTotal|Integer|true| |
+|fromAddress|String|true||
+|fromAddressTotal|String|true||
+|tokenSymbol|String|true| `length >= 3 && length <= 5 `|
+|details|Object|false| | 
+
+Transaction Part 2 Example: 
+```js
+{
+  from: 'issuer-public-address',
+  to: 'investor2-public-address',
+  amt: 0,
+  fee: 1,
+  notes: {
+    status: 'DENIED',
+    reason: {
+      errorCode: 14,
+      message: 'Error code 14: KYC Check Failed.',
+    }
+    transferTotal: 0,
+    fromAddress: 'investor1-public-address',
+    fromAddressTotal: 300,
     tokenSymbol: 'MYT',
     details: {},
   }
