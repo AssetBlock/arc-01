@@ -37,6 +37,8 @@ Publishing a compliance specification requires the creator to maintain a publicl
 |----|----|----|----|----|
 |specUri|String|true|Must be a valid `JSON` file following the `ARC-01 document specification` json schema |Public url to compliance spec details, error handling, and description |
 |specChecksum|String|true|`SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value|||details|Object|true|||
+|details|Object|false|||
+
 
 #### Example Algorand transaction payload:
 ```js
@@ -63,7 +65,7 @@ Updating a compliance specification requires the creator to update unique values
 |----|----|----|----|----|
 |specUri|String|true|Must be a valid `JSON` file following the `ARC-01 document specification` json schema |Public url to compliance spec details, error handling, and description |
 |specChecksum|String|true|`SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value||
-|details|Object|true|||
+|details|Object|false|||
 
 #### Example Algorand transaction payload:
 ```js
