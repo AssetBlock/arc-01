@@ -132,7 +132,7 @@ Transaction Part 1 Example:
 
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
-|status|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
+|transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
 |transferTotal|Integer|true| |
 |fromAddress|String|true||
 |fromAddressTotal|String|true||
@@ -148,7 +148,7 @@ Transaction Part 2 Example:
   amt: 0,
   fee: 1,
   notes: {
-    status: 'APPROVED',
+    transferStatus: 'APPROVED',
     transferTotal: 50,    
     fromAddress: 'investor1-public-address',
     fromAddressTotal: 250,
@@ -162,9 +162,11 @@ Transaction Part 2 Example:
 
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
+|transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
 |transferTotal|Integer|true| |
 |fromAddress|String|true||
 |fromAddressTotal|String|true||
+|error|Object<Error>|true| must match error specification tied to [compliance specification](compliance) |
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
@@ -175,13 +177,13 @@ Transaction Part 2 Example:
   to: 'investor2-public-address',
   amt: 0,
   fee: 1,
-  notes: {
-    status: 'DENIED',
-    reason: {
-      errorCode: 14,
-      message: 'Error code 14: KYC Check Failed.',
-    }
+  notes: {    
+    transferStatus: 'DENIED',
     transferTotal: 0,
+    error: {
+      errorCode: 14,
+      errorMessage: 'Error code 14: Recipient KYC compliance status missing.',
+    }
     fromAddress: 'investor1-public-address',
     fromAddressTotal: 300,
     tokenSymbol: 'MYT',
