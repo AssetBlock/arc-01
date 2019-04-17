@@ -16,7 +16,9 @@ For the purposes of the doc below we are using the following key terms:
 
 **Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-public-address` account in the examples below. 
 
-**Compliance Manager**: A member of the issuer who has authority to manually verify or work with a trusted third party who verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). Controls the private keys of the `issuer-public-address` account in the examples below.
+**Compliance Manager**: A delegate of the issuer or the issuer themselves who has authority to verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). 
+
+Controls the private keys of the `compliance-manager-public-address` account in the examples below.
 
 
 ## Compliance Ruleset
@@ -32,6 +34,7 @@ The standard for each step of a token's lifecycle is detailed below:
 1. [Investor - Request Transfer](#requesting-a-transfer)
 1. [Issuer - Approve Transfer](#approving-a-transfer)
 1. [Issuer - Deny Transfer](#denying-a-transfer)
+1. [Issuer - Update Token](#updating-a-token)
 
 ### 1. Creating a Token
 
