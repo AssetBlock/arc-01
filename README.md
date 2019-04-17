@@ -6,6 +6,11 @@ Unlike tokens on a smart contract-enabled platform, there is not yet support for
 
 Instead, we must use the transaction `notes` field as the primary tool for defining tokens. For security tokens, we must pass requests for transfers to a central token issuer who is responsible for approving the transfer based on the compliance rules associated with the token.
 
+### Important Considerations
+
+* The following standard must keep the notes field under the required 1k encoded size. We may need to make additional adjustments to labels and validation of values to guarantee the notes field will not exceed this limit. 
+
+
 ### Key Terms
 
 For the purposes of the doc below we are using the following key terms:
@@ -21,7 +26,7 @@ For the purposes of the doc below we are using the following key terms:
 Controls the private keys of the `compliance-manager-public-address` account in the examples below.
 
 
-## Compliance Ruleset
+## Compliance
 
 Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow a set of compliance rules. 
 
@@ -43,7 +48,6 @@ The standard for each step of a token's lifecycle is detailed below:
 To mint a new token, an issuer creates a "genesis transaction" wherein the compliance details, token details, and available token quantities are outlined. This will serve as a set of rules for future transactions to use.
 
 #### Specification
-
 |Key|Type|Required|Validation|Description|
 |----|----|----|----|----|
 |tokenName|String|false| `length <=26`| The name of the token |
@@ -76,16 +80,17 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 * A single issuer MUST NOT create more than one token with the same symbol
 
 
-
 ### 2. Primary Distribution of a Token
+An issuer may distribute tokens to investors after first verifying that a compliance check has been performed and has been resolved.
 
+#### Specification
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
 |quantity|Int|true| 
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false||
 
-Example: 
+#### Example Algorand transaction payload:
 ```js
 {
   from: 'issuer-public-address',
@@ -104,6 +109,7 @@ Example:
 
 Investors must indicate to the compliance manager that they are looking to trade tokens to another investor. The compliance manager must approve or deny each request.
 
+#### Specification
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
 |quantity|Integer|true| |
@@ -111,7 +117,7 @@ Investors must indicate to the compliance manager that they are looking to trade
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
-Transaction Part 1 Example: 
+#### Example Algorand transaction payload:
 ```js
 {
   from: 'investor1-public-address',
@@ -129,6 +135,7 @@ Transaction Part 1 Example:
 
 ### 4. Approving a Transfer
 
+#### Specification
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
 |transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
@@ -138,7 +145,7 @@ Transaction Part 1 Example:
 |details|Object|false| | 
 
 
-Transaction Part 2 Example: 
+#### Example Algorand transaction payload:
 ```js
 {
   from: 'compliance-manager-public-address',
@@ -157,6 +164,7 @@ Transaction Part 2 Example:
 
 ### 5. Denying a Transfer
 
+#### Specification
 |Key|Type|Required|Additional Validation|
 |----|----|----|----|
 |transferStatus|String|true| must match approved statuses `['APPROVED', 'DENIED']`|
@@ -166,7 +174,7 @@ Transaction Part 2 Example:
 |tokenSymbol|String|true| `length >= 3 && length <= 5 `|
 |details|Object|false| | 
 
-Transaction Part 2 Example: 
+#### Example Algorand transaction payload:
 ```js
 {
   from: 'compliance-manager-public-address',
