@@ -12,13 +12,12 @@ The goal is to create a generic standard ruleset specification so that any issue
 
 |Key|Type|Required|Validation|Description|
 |----|----|----|----|----|
-|tokenName|String|false| `length <=26`| The name of the token |
-|tokenSymbol|String|true| `length >= 3 && <= 5`| The symbol of the token for exchange and unique identification purposes |
-|tokenQuantity|Int|true| ` > 0`|Total tokens available at initial offering|
-|decimalPlaces|Int|false| `length<= 18`| Number of decimal places to honor|
-|compliance|Compliance Object<details>|false| | A separate payload specification detailing compliance requirements |
-|details|Object|false|| A utility field for additional metadata for use by the issuer or to provide more information|
-
+|specUrl|String|true|||
+|specAlgorithm|String|true|||
+|specHash|String|true|||
+|verificationAddress|Array|true|||
+|errorSpecifications|Array|true|||
+|complianceNotes|Object|true|||
 
 #### Example Algorand transaction payload:
 ```js
@@ -37,6 +36,18 @@ The goal is to create a generic standard ruleset specification so that any issue
       specAlgorithm: 'SHA-256',
       specHash: 'asdfasdf-23452-w642kmnpokn-2345234',
       verificationAddress: [''],
+      errorSpecifications: [
+        { 
+          code: 1,
+          spec: 'COMPL_1_OOD',
+          defaultMessage: 'Recipient compliance check out of date',
+        },
+        {
+          code: 2,
+          spec: 'COMPL_2_MISSING',
+          defaultMessage: 'Recipient compliance missing',
+        }      
+      ] 
       complianceNotes: {},
     },
     details: {}
