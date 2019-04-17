@@ -4,7 +4,7 @@ A hybrid security token standard proposal for Algorand
 ## Summary
 Unlike tokens on a smart contract-enabled platform, there is not yet support for native functions to automate processes and avoid issues smart contracts were designed to prevent (such as dual payments). 
 
-Instead, we must use the transaction `notes` field as the primary tool for defining tokens. For some security tokens, we must pass requests for transfers to a central token issuer who is responsible for approving the transfer based on the compliance rules associated with the token.
+Instead, we must use the transaction `notes` field as the primary tool for defining tokens. For security tokens, we must pass requests for transfers to a central token issuer who is responsible for approving the transfer based on the compliance rules associated with the token.
 
 ### Key Terms
 
