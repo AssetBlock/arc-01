@@ -23,7 +23,9 @@ Controls the private keys of the `compliance-manager-public-address` account in 
 
 ## Compliance Ruleset
 
-Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow a set of compliance rules. To define these rules at the time of a token's issuance, follow the [compliance specification](./compliance.md)
+Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow a set of compliance rules. 
+
+Before a token can be created, an issuer must either publish or reference a published [compliance specification](./compliance.md).
 
 
 ## Token Lifecycle
@@ -48,7 +50,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 |tokenSymbol|String|true| `length >= 3 && <= 5`| The symbol of the token for exchange and unique identification purposes |
 |tokenQuantity|Int|true| ` > 0`|Total tokens available at initial offering|
 |decimalPlaces|Int|false| `length<= 18`| Number of decimal places to honor|
-|compliance|[`Object<Compliance>`](./compliance.md)|false| | See [compliance specification](./compliance.md) for details |
+|compliance|String|true| | Transaction ID where compliance spec was published within notes field. See [compliance specification](./compliance.md) for details |
 |details|Object|false|| A utility field for additional metadata for use by the issuer or to provide more information|
 
 
@@ -64,13 +66,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
     tokenSymbol: 'MYT',
     tokenQuantity: 10000,
     decimalPlaces: 16,
-    compliance: {
-      specUrl: 'https://assetblock.com/specs/realEstateSecurity',
-      specAlgorithm: 'SHA-256',
-      specHash: 'asdfasdf-23452-w642kmnpokn-2345234',
-      verificationAddress: [''],
-      complianceNotes: {},
-    },
+    compliance: 'compliance-tx-id',
     details: {}
   }
 }
