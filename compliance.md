@@ -32,8 +32,7 @@ The goal is to create a generic standard ruleset specification so that any issue
     tokenQuantity: 10000,
     decimalPlaces: 16,
     compliance: {
-      specUrl: 'https://assetblock.com/specs/realEstateSecurity',
-      specAlgorithm: 'SHA-256',
+      specLocation: '',
       specHash: 'asdfasdf-23452-w642kmnpokn-2345234',
       verificationAddress: [''],
       errorSpecifications: [
