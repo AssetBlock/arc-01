@@ -41,7 +41,7 @@ The standard for each step of a token's lifecycle is detailed below:
 1. [Compliance Manager - Approve Transfer](#approving-a-transfer)
 1. [Compliance Manager - Deny Transfer](#denying-a-transfer)
 1. [Issuer - Update Token](#updating-a-token)
-1. [Issue - Split Token](#splitting-a-token)
+1. [Issue - Update Token Distribution](#updating-token-distribution)
 
 ### 1. Creating a Token
 
@@ -211,14 +211,16 @@ In order to issue or transfer tokens the issuer or investor must indicate to the
   to: 'compliance-manager-public-address',
   amt: 0,
   fee: 1,
-  notes: {    
-    /* Split */
-    type: 'split,
+  notes: {
+    // Split distribution options
+    type: 'split',
     ratio: '1to3',
-    // Issue More Equity
+
+    // Issue More Equity distribution options
     type: 'issue-more-equity',
     qty: 5000,    
-    // Burn After Buyback    
+
+    // Burn After Buyback distribution options   
     type: 'burnAfterBuyback',
     txnId: 'transaction-id-of-approved-buyback',
     qty: 50    
