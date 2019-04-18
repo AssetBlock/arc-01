@@ -42,14 +42,14 @@ The standard for each step of a token's lifecycle is detailed below:
 
 |Step|Initiating Role| 
 |----|----|
-|[1. Create a Token](#create-a-token)|Issuer|
-|[2. Request to Issue or Transfer Tokens](#requesting-issuance-or-transfer-of-tokens)|Issuer or Investor|
-|[3. Approve Transfer](#approving-a-transfer)|Compliance Manager|
-|[4. Deny Transfer](#denying-a-transfer) | Compliance Manager| 
-|[5. Update Token Compliance Details](#updating-a-token) | Issuer |
-|[6. Request Update to Token Distribution](#updating-token-distribution) | Issuer |
+|[Create a Token](#create-a-token)|Issuer|
+|[Requesting Issuance or Transfer of Tokens](#requesting-issuance-or-transfer-of-tokens)|Issuer or Investor|
+|[Approve Transfer](#approving-a-transfer)|Compliance Manager|
+|[Deny Transfer](#denying-a-transfer) | Compliance Manager| 
+|[Update Token Compliance Details](#updating-token-compliance-details) | Issuer |
+|[Request Update to Token Distribution](#request-update-to-token-distribution) | Issuer |
 
-### 1. Create a Token
+### Create a Token
 
 To mint a new token, an issuer creates a "genesis transaction" wherein the compliance details, token details, and available token quantities are outlined. This will serve as a set of rules for future transactions to use.
 
@@ -88,7 +88,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 #### Additional Notes / Restrictions
 * A single issuer **MUST NOT** create more than one token with the same symbol
 
-### 2. Requesting Issuance or Transfer of Tokens
+### Requesting Issuance or Transfer of Tokens
 
 In order to issue or transfer tokens the issuer or investor must indicate to a specified compliance manager that they are looking to transfer tokens. The compliance manager must approve or deny token transfers moving forward, including primary issuance and secondary market transactions.
 
@@ -116,7 +116,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 }
 ```
 
-### 3. Approving a Transfer
+### Approving a Transfer
 
 #### Specification
 |Key|Type|Required|Additional Validation|Description| 
@@ -147,7 +147,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 }
 ```
 
-### 4. Denying a Transfer
+### Denying a Transfer
 
 #### Specification
 |Key|Type|Required|Additional Validation|Description|
@@ -181,7 +181,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 ```
 
 
-### 5. Updating Token Compliance
+### Updating Token Compliance Details
 
 #### Specification
 |Key|Type|Required|Additional Validation|Description|
@@ -205,7 +205,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 ```
 
 
-### 6. Request Update to Token Distribution
+### Request Update to Token Distribution
 
 #### Specification
 |Key|Type|Required|Additional Validation|Description|
