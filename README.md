@@ -2,7 +2,7 @@
 A open source hybrid security token standard proposal for Algorand
 
 ## Summary
-While Algorand develops its borderless economy for business, it’s essential to design and develop a compliant security token standard to drive adoption and provide a solid security token issuer and investor experience. `ARC-01` seeks to establish a “hybrid” security token framework taking advantage of the technology that Algorand will release along with their MainNet.
+While Algorand develops its borderless economy for business, it’s essential to design and develop a compliant security token standard to drive adoption and provide a solid security token issuer and investor experience. `ARC-01` seeks to establish a “hybrid” security token framework taking advantage of the technology that Algorand will release along with their MainNet, coupled with the advantages of any manual compliance verification process from trusted third-parties.
 
 This standard is driven by a continued observation in existing blockchain ecosystems; That any blockchain, regardless of its  implementation of “smart contract” technology, cannot support a purely **touchless** security token standard to the satisfaction of any governing regulatory body while _also_ protecting the issuer’s choice of who to share their sensitive personal information with. In existing ecosystems implementing smart contracts, issuers develop their own proprietary whitelists while collecting sensitive investor information. This creates multiple centralized points of failure that gives investors less control over their privacy, and dissuades them from diversifying into alternative investments or even breaking into blockchain investing in the first place.
 
@@ -13,16 +13,15 @@ This standard also aims to create an ecosystem wherein investors can trust any o
 
 ### Important Considerations
 
-* The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions.
-* Due to its reliance on the `notes` field, all payloads must remain within the maximum required 1k encoded size. This standard makes it a priority whenever possible to keep payload sizes small.
+* The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the maximum required 1k encoded size. This standard makes it a priority whenever possible to keep payload sizes manageable.
 
 ### Key Terms
 
 For the purposes of the doc below we are using the following key terms:
 
-**Token**: Digitial representations functioning as a traditional security asset.
+**Token**: Digitial representations of ownership functioning as a traditional security asset.
 
-**Issuer**: The creator and owner of the token who controls distributions of it based on a particular set of compliance rules. Controls the private keys of the `issuer-address` account in the examples below.
+**Issuer**: The creator and owner of the token controlling the securities the token represents. Responsible for defining the compliance profile of their token, as well as an address of an approved `compliance manager`. Controls the private keys of the `issuer-address` account in the examples below.
 
 **Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-address` account in the examples below. 
 
