@@ -2,9 +2,14 @@
 A hybrid security token standard proposal for Algorand
 
 ## Summary
-Unlike tokens on a smart contract-enabled platform, there is not yet support for native functions to automate processes and avoid issues smart contracts were designed to prevent (such as dual payments). 
+While Algorand develops its borderless economy for business, it’s essential to design and develop a security token standard to drive adoption and provide a solid security token issuer and investor experience. `ARC-01` seeks to establish a “hybrid” security token framework taking advantage of the technology that Algorand will release along with their MainNet.
 
-Instead, we must use the transaction `notes` field as the primary tool for defining tokens. For security tokens, we must pass requests for transfers to a central token issuer who is responsible for approving the transfer based on the compliance rules associated with the token.
+This standard is driven by a continued observation in existing blockchain ecosystems; that any blockchain, regardless of its  implementation of “smart contract” technology, cannot support a purely **touchless** security token standard to the satisfaction of any governing regulatory body while _also_ protecting the issuer’s choice of who to share their sensitive personal information with. In the current ecosystem, issuers have been forced to develop their own proprietary whitelists while collecting sensitive investor information. This creates multiple centralized points of failure that gives investors less control over their privacy, and dissuades them from diversifying into alternative investments or relying on blockchain technology in the first place.
+
+In a system implementing a mature `ARC-01` standard (following community review and feedback), this would be mitigated. This standard aims to create an **economy of choice** for issuers of security tokens to decide who will manage and control the compliance of their tokens by proposing a standard for compliance verification including investor validation checks, distributions, interventions, and error states all published to the Algorand blockchain. 
+
+This standard also aims to create an ecosystem wherein investors can trust any one single compliance provider and tie that compliance profile to their account(s). Any compliance body adhering to the `ARC-01` standard would be able to confirm an investor’s compliance profile, which creates an abundance of choice for investors to choose any compliant legal entity adhering to the standard. Issuers would no longer require any additional sensitive personal information from investors, allowing investors a powerful control over their own financial profile and personal data while only ever having to keep it updated in one place.
+
 
 ### Important Considerations
 
