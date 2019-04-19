@@ -89,15 +89,15 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 
 ### Requesting Issuance or Transfer of Tokens
 
-In order to issue or transfer tokens the issuer or investor must indicate to a specified compliance manager that they are looking to transfer tokens. The compliance manager must approve or deny token transfers moving forward, including primary issuance and secondary market transactions.
+In order to issue or transfer tokens the issuer or investor must indicate to a specified compliance manager that they are looking to transfer tokens. The compliance manager must approve or deny token transfers moving forward.
 
-##### Transaction Types
+##### Transfer Request Types
 
-**BASIC**: A standard transfer. The requesting party expects a transfer to be honored pending the proper checks. 
+**BASIC**: A standard transfer used for primary and secondary market issuance. The requesting party expects a transfer to be honored pending the proper checks. 
 
 **CHECK**: A facsimile of a real transfer. Compliance manager would post a transaction that indicates whether or not a transfer would be  approved or denied with transfer quantity 0 in either case.
 
-**FORCE**: A forced transfer, required by law, compliance, legal settlement, etc. Issuer sends request to compliance manager with reason, perhaps even hashing the court order, which is securely stored off-chain.  This mirrors a standard transfer within the standard
+**FORCE**: A forced transfer, required by law, compliance, legal settlement, etc. Issuer sends request to compliance manager with reason, perhaps even hashing the court order, which is securely stored off-chain.  This mirrors a standard transfer within the standard.
 
 #### Specification
 |Key|Type|Required|Additional Validation|Description| 
