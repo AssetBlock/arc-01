@@ -93,7 +93,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 
 ##### Transfer Request Types
 
-**BASIC**: A standard transfer used for primary and secondary market issuance. The requesting party expects a transfer to be honored pending the proper checks. 
+**BASIC**: A standard transfer used for primary issuance and secondary market transfers. The requesting party expects a transfer to be honored pending the proper checks. 
 
 **CHECK**: A facsimile of a real transfer. Compliance manager would post a transaction that indicates whether or not a transfer would be  approved or denied with transfer quantity 0 in either case.
 
