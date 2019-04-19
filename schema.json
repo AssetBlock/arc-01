@@ -1,5 +1,5 @@
 {
-  "$id": "https://assetblock.com/arc-01.json",
+  "$id": "https://example.com/arrays.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ARC-01 Security Token Initial Investor Offering",
   "type": "object",
@@ -23,52 +23,55 @@
     "rules": {
       "type": "array",
       "items": { "$ref": "#/definitions/rule" }
+    }
+  },
+  "definitions": {
+    "rule": {
+      "type": "object",
+      "required": [
+        "code",
+        "attribute",
+        "requirements"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "A string identifier for the rule to use in error messages and other feedback"
+        },
+        "attribute": {
+          "type": "string",
+          "description": "A valid and recognized attribute name for an investor"
+        },
+        "requirements": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/requirement" },
+          "description": "A list of requirements to satisfy this rule"
+        }
+      }
     },
-    "definitions": {
-      "rule": {
-        "type": "object",
-        "required": ["attribute", "requirements"],
-        "properties": {
-          "code": {
-            "type": "string",
-            "required": true,
-            "description": "A string identifier for the rule to use in error messages and other feedback"
-          },
-          "attribute": {
-            "type": "string",
-            "required": ["CITIZENSHIP", "KYC/AML", "ACCREDITED_STATUS", "QUALIFIED_PURCHASER"],
-            "description": "A valid and recognized attribute name for an investor"
-          },
-          "requirements": { "$ref": "#/definitions/requirements" }
+    "requirement": {
+      "type": "object",
+      "properties": {
+        "is": {
+          "type": "string",
+          "description": "Equality validation"
+        },
+        "condition": {
+          "type": "object",
+          "$ref": "#/definitions/condition"
         }
-      },
-      "requirements": {
-        "type": "array",
-        "items": { "$ref": "#/definitions/requirement" }    
-      },
-      "requirement": {
-        "type": "object",
-        "properties": {
-          "is": {
-            "type": "string",
-            "description": "Equality validation"
-          },
-          "condition": {
-            "$ref": "#definitions/condition"
-          }    
+      }
+    },
+    "condition": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "max": {
+          "type": "number"
         }
-      },
-      "condition": {
-        "type": "object",
-        "properties": {
-          "attribute": {
-            "type": "string"            
-          },
-          "max": {
-            "type": "number"
-          }
-        }
-      }       
+      }
     }
   }
 }

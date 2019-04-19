@@ -2,10 +2,14 @@
   "schema": "https://assetblock.com/arc-01.json",
   "name": "ARC-01 Security Token",
   "version": 1,
-  "keywords": "real estate securities, REG D",
+  "keywords": [
+    "Real Estate",
+    "REG(d)",
+    "Securities"
+  ],
   "rules": [
     {
-      "code": "US_CITIZEN_01",      
+      "code": "US_CITIZEN_01",
       "attribute": "CITIZENSHIP",
       "requirements": [
         { "is": "US" }
@@ -17,26 +21,26 @@
       "requirements": [
         { "is": "PASS" }
       ]
-    },    
+    },
     {
       "code": "ACCREDITED_LIMIT_01",
       "attribute": "ACCREDITED_STATUS",
       "requirements": [
-        { 
+        {
           "is": "ACCREDITED_INVESTOR" ,
           "condition": {
             "attribute": "ACCREDITED_INVESTOR_COUNT",
-            "max": 99 
+            "max": 99
           }
-        },        
+        },
         {
           "is": "QUALIFIED_PURCHASER",
           "condition": {
             "attribute": "QUALIFIED_PURCHASER_COUNT",
-            "max": 1899 
-          }          
+            "max": 1899
+          }
         }
-      ]   
-    }    
+      ]
+    }
   ]
 }

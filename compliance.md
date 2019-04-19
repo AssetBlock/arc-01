@@ -9,7 +9,9 @@ This specification outlines a generic standard ruleset specification so that any
 
 #### Compliance specifications
 
-When issuing a new token, issuers must define their own compliance specifications using a valid `ARC-01`-formatted document: 
+**IMPORTANT NOTE**: THIS IS NOT FINAL, The format proposed here, while a valid json-schema spec, is an example illustrating a few broad concepts like how we might handle rules and conditional requirements in a json format. We're currently collecting feedback and looking to change this format, potentially changing the outline entirely.
+
+When issuing a new token, issuers must define their own compliance specifications using a valid `ARC-01`-formatted document:
 
 * [Example `ARC-01 JSON Schema Standard`](./schema.json)
 
@@ -46,9 +48,9 @@ Publishing a compliance specification requires the creator to maintain a publicl
   to: 'creator-public-address',
   amt: 0,
   fee: 1,
-  notes: {    
+  notes: {
     specUri: '',
-    specChecksum: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',    
+    specChecksum: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
     details: {},
   }
 }
@@ -73,7 +75,7 @@ Updating a compliance specification requires the creator to update unique values
   to: 'creator-public-address',
   amt: 0,
   fee: 1,
-  notes: {    
+  notes: {
     specUri: 'assetblock-compliance-specification-1.json',
     specChecksum: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
     details: {},
