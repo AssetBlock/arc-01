@@ -13,7 +13,7 @@ This standard also aims to create an ecosystem wherein investors can trust any o
 
 ### Important Considerations
 
-* The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the maximum required 1k encoded size. This standard makes it a priority whenever possible to keep payload sizes manageable.
+* The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the [maximum encoded 1k size](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write). This standard makes it a priority whenever possible to keep payload sizes manageable. 
 
 ### Key Terms
 
@@ -27,14 +27,10 @@ For the purposes of the doc below we are using the following key terms:
 
 **Third-Party**: A manager or other non-investor stakeholder who can update or provide documents updating the status of a particular issued security token.
 
-**Compliance Manager**: A delegate of the issuer or the issuer themselves who has authority to verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). 
-
-Controls the private keys of the `compliance-manager-address` account in the examples below.
+**Compliance Manager**: A delegate of the issuer, or the issuer themselves, who has authority to verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). Controls the private keys of the `compliance-manager-address` account in the examples below.
 
 
 ## Compliance
-
-Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow a set of compliance rules. 
 
 Before a token may be created, an issuer must either publish or reference a published [compliance specification](./compliance.md) transaction on the blockchain that their token will adhere to. The `compliance-manager-address` requirement in the [Create a Token](#create-a-token) transaction below will be responsible for token distributions and balance changes moving forward. 
 

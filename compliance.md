@@ -3,24 +3,23 @@
 
 ## Summary
 
-Security tokens have an added layer of complexity that requires any transfer or holding of a token representing securities to follow compliance rules. For example, in order to invest in some securities in the US, investors residing in the US must be accredited, must not be on any anti-money-laundering watchlists, and must pass a KYC (Know Your Customer) check. 
+Security tokens require an added layer of controls to govern transfer or holding of a token representing securities. For example, in order to invest in some securities in the US, investors residing in the US must be accredited investors, and must not be on any anti-money-laundering watchlists by passing a KYC (Know Your Customer) and AML (Anti-Money-Laundering) check. 
 
-The goal is to create a generic standard ruleset specification so that any issuer can publish and refer to a pre-defined set of rules. Ideally, these validation rules stored on-chain would enable them to be used ubiquitously by any issuer of security tokens.
+This spec aims to create a generic standard ruleset specification so that any issuer can publish and refer to a pre-defined set of rules for any compliance profile. Ideally, these validation rules stored on-chain would enable the rules to be referenced and used ubiquitously by any issuer of security tokens and/or compliance manager.
 
 #### Compliance specifications
 
-Issuers define their own compliance specifications using a valid 
-document that adheres to the latest ARC-01 json standard:
+When issuing a new token, issuers must define their own compliance specifications using a valid `ARC-01`-formatted document: 
 
-[`ARC-01 JSON Schema Standard`](./schema.json)
+* [Example `ARC-01 JSON Schema Standard`](./schema.json)
 
-Example Compliance specification:
+Example compliance specification:
 
-[assetblock-compliance-specification-1.json](./complianceSpec1.json)
+* [assetblock-compliance-specification-1.json](./complianceSpec1.json)
 
 ### Key Terms
 
-**Issuer**: The creator and owner of the compliance documentation standard. Controls the private keys of the `issuer-public-address` account in the examples below.
+**Creator**: The originator and owner of the compliance documentation standard. Controls the private keys of the `creator-public-address` account in the examples below.
 
 ## Compliance Lifecycle
 
@@ -43,8 +42,8 @@ Publishing a compliance specification requires the creator to maintain a publicl
 #### Example Algorand transaction payload:
 ```js
 {
-  from: 'issuer-public-address',
-  to: 'issuer-public-address',
+  from: 'creator-public-address',
+  to: 'creator-public-address',
   amt: 0,
   fee: 1,
   notes: {    
@@ -70,8 +69,8 @@ Updating a compliance specification requires the creator to update unique values
 #### Example Algorand transaction payload:
 ```js
 {
-  from: 'issuer-public-address',
-  to: 'issuer-public-address',
+  from: 'creator-public-address',
+  to: 'creator-public-address',
   amt: 0,
   fee: 1,
   notes: {    
