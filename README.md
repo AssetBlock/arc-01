@@ -129,6 +129,9 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 }
 ```
 
+#### Additional Notes / Restrictions
+* The `FORCE` transfer function could also be used in the case of lost keys. The issuer and compliance manager could force transfer from a locked account to a new account.
+
 ### Approving a Transfer
 
 #### Specification
@@ -199,16 +202,18 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 #### Specification
 |Key|Type|Required|Additional Validation|Description|
 |----|----|----|----|----|
+|tknSymbol|String|true| `length >= 3 && <= 5`| The symbol of the token for exchange and unique identification purposes |
 |compliance|Object|true| | Contains Transaction ID where compliance spec was published within notes field and an array of at least one compliance manager address. See [compliance specification](./compliance.md) for details |
 
 #### Example Algorand transaction payload:
 ```js
 {
   from: 'issuer-address',
-  to: 'compliance-manager-address',
+  to: 'issuer-address',
   amt: 0,
   fee: 1,
   notes: {    
+    tknSymbol: 'MYT',
     compliance: {
       managers: ['compliance-manager-address'],
       specTxn: 'compliance-tx-id',
