@@ -25,6 +25,8 @@ For the purposes of the doc below we are using the following key terms:
 
 **Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-address` account in the examples below. 
 
+**Third-Party**: A manager or other non-investor stakeholder who can update or provide documents updating the status of a particular issued security token.
+
 **Compliance Manager**: A delegate of the issuer or the issuer themselves who has authority to verify that the accounts involved in a transaction adhere to the rules set forth in the token's [compliance specification](./compliance.md). 
 
 Controls the private keys of the `compliance-manager-address` account in the examples below.
@@ -47,6 +49,7 @@ The standard for each step of a token's lifecycle is detailed below:
 |[Approve Transfer](#approving-a-transfer)|Compliance Manager|
 |[Deny Transfer](#denying-a-transfer) | Compliance Manager| 
 |[Update Token Compliance Details](#updating-token-compliance-details) | Issuer |
+|[Adding Token Documents](#adding-token-documents)|Investor or Third Party|
 |[Request Update to Token Distribution](#request-update-to-token-distribution) | Issuer |
 
 ### Create a Token
@@ -92,13 +95,23 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 
 In order to issue or transfer tokens the issuer or investor must indicate to a specified compliance manager that they are looking to transfer tokens. The compliance manager must approve or deny token transfers moving forward, including primary issuance and secondary market transactions.
 
+##### Transaction Types
+
+**BASIC**: A standard transfer. The requesting party expects a transfer to be honored pending the proper checks. 
+
+**CHECK**: A facsimile of a real transfer. Compliance manager would post a transaction that indicates whether or not a transfer would be  approved or denied with transfer quantity 0 in either case.
+
+**FORCE**: A forced transfer, required by law, compliance, legal settlement, etc. Issuer sends request to compliance manager with reason, perhaps even hashing the court order, which is securely stored off-chain.  This mirrors a standard transfer within the standard
+
 #### Specification
 |Key|Type|Required|Additional Validation|Description| 
 |----|----|----|----|----|
 |qty|Integer|true||Quantity of tokens to issue or transfer|
+|type|String|true|Must be equal to one of the possible fixed-length request type constant codes: `BASIC`, `FORCE`, `CHECK`| The type of request being made of the compliance manager |
 |toAddr|String|true||Intended recipient address|
 |tknSymbol|String|true| `length >= 3 && length <= 5 `|Required symbol for token|
 |meta|Object|false||Freeform metadata field| 
+
 
 #### Example Algorand transaction payload:
 ```js
@@ -109,6 +122,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   fee: 1,
   notes: {
     qty: 50,
+    type: 'CHECK',
     toAddr: 'investor2-address',
     tknSymbol: 'MYT',
     meta: {},
@@ -205,6 +219,32 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 ```
 
 
+
+
+
+### Adding Token Documents
+
+#### Specification
+|Key|Type|Required|Additional Validation|Description|
+|----|----|----|----|----|
+|tknSymbol|String|true| | Symbol of the token to apply documents to |
+|docs|Array|true|Array must contain at least one hash|The issuer or any third party submits a publicly-accessible document location for storing data about the token |
+
+#### Example Algorand transaction payload:
+```js
+{
+  from: 'issuer-address|third-party-address',
+  to: 'issuer-address',
+  amt: 0,
+  fee: 1,
+  notes: {   
+    tknSymbol: 'MYT',
+    docs: [''],
+  },
+}
+```
+
+
 ### Request Update to Token Distribution
 
 #### Specification
@@ -214,6 +254,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 |ratio|string|`if type === 'ISSUE_MORE_EQUITY'`|Two numbers joined by a `:` character in a string|The ratio in which the split should occur|
 |qty|number|`if type === 'ISSUE_MORE_EQUITY' or type === 'BURN_AFTER_BUYBACK'`||Number of tokens to add or burn|
 |txnId|string|`if type === 'BURN_AFTER_BUYBACK'`|Valid transaction ID| The id of the transaction that approved a buyback of an issuer from an investor|
+|total|number|`if type === 'BURN_AFTER_BUYBACK'`||Total quantity of tokens after buyback|
 
 #### Example Algorand transaction payload:
 ```js
@@ -234,6 +275,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
     // Burn After Buyback distribution options   
     type: 'BURN_AFTER_BUYBACK',
     txnId: 'transaction-id-of-approved-buyback',
+    total: 5000,
     qty: 50    
   }
 }
