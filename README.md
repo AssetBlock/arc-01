@@ -232,7 +232,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 |Key|Type|Required|Additional Validation|Description|
 |----|----|----|----|----|
 |tknSymbol|String|true| | Symbol of the token to apply documents to |
-|docs|Array|true|Array must contain at least one hash|The issuer or any third party submits a publicly-accessible document location for storing data about the token |
+|docs|Array|true|Array must contain at least object containing `link` and `hash` for verification. The `hash` property should contain a `SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value|The issuer or any third party submits a publicly-accessible document location for storing data about the token. |
 
 #### Example Algorand transaction payload:
 ```js
@@ -243,7 +243,10 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   fee: 1,
   notes: {   
     tknSymbol: 'MYT',
-    docs: [''],
+    docs: [{
+      link: 'https://token.com/1.json',
+      hash: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',      
+    }],
   },
 }
 ```
