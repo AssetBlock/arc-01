@@ -14,6 +14,9 @@ This standard also aims to create an ecosystem wherein investors can trust any o
 ### Important Considerations
 
 * The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the [maximum encoded 1k size](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write). This standard makes it a priority whenever possible to keep payload sizes manageable. 
+* Whenever possible, information sent in the notes field will adhere to a **transaction-only** approach, in that any computed properties that can be derived from looking at a history of transfers will not be specified in this document. This keeps the burden of proof purely on the chain, rather than on the issuer or investors having to update transaction details or totals. This also opens up a potential path for the development of custom interpretation engines or smart contract support to be added incrementally over time.
+** Example: To approve a transfer of tokens from investor1 to investor2, the compliance manager is not required to update the chain with the total number of held tokens by each, but rather only show the number of tokens that were added or removed from their relative balances.
+
 
 ### Key Terms
 
@@ -250,7 +253,6 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 |ratio|string|`if type === 'ISSUE_MORE_EQUITY'`|Two numbers joined by a `:` character in a string|The ratio in which the split should occur|
 |qty|number|`if type === 'ISSUE_MORE_EQUITY' or type === 'BURN_AFTER_BUYBACK'`||Number of tokens to add or burn|
 |txnId|string|`if type === 'BURN_AFTER_BUYBACK'`|Valid transaction ID| The id of the transaction that approved a buyback of an issuer from an investor|
-|total|number|`if type === 'BURN_AFTER_BUYBACK'`||Total quantity of tokens after buyback|
 
 #### Example Algorand transaction payload:
 ```js
@@ -262,7 +264,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   notes: {
     // Split distribution options
     type: 'SPLIT',
-    ratio: '1:3',
+    ratio: '3:1',
 
     // Issue More Equity distribution options
     type: 'ISSUE_MORE_EQUITY',
@@ -271,8 +273,10 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
     // Burn After Buyback distribution options   
     type: 'BURN_AFTER_BUYBACK',
     txnId: 'transaction-id-of-approved-buyback',
-    total: 5000,
     qty: 50    
   }
 }
 ```
+
+#### Additional Notes / Restrictions
+* In the instance of a `SPLIT`, pending approval from the compliance manager, the compliance manager will post an "APPROVE" transaction for each investor treating this as the reference transaction.
