@@ -1,5 +1,5 @@
 # ARC-01
-A open source hybrid security token standard proposal for Algorand
+An open source hybrid security token standard proposal for Algorand
 
 ## Summary
 While Algorand develops its borderless economy for business, it’s essential to design and develop a compliant security token standard to drive adoption and provide a solid security token issuer and investor experience. `ARC-01` seeks to establish a “hybrid” security token framework taking advantage of the technology that Algorand will release along with their MainNet, coupled with the advantages of any manual compliance verification process from trusted third-parties.
