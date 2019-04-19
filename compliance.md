@@ -3,9 +3,9 @@
 
 ## Summary
 
-Security tokens require an added layer of controls to govern transfer or holding of a token representing securities. For example, in order to invest in some securities in the US, investors residing in the US must be accredited investors, and must not be on any anti-money-laundering watchlists by passing a KYC (Know Your Customer) and AML (Anti-Money-Laundering) check. 
+Unlike utility tokens, security tokens have an added layer of controls due to necessary adherence to the SEC and other regulatory bodies. This mandate requires any token to create lawful compliance requirements (e.g. KYC/AML pass, accredited investor, and 12 month lockup period following issuance) that must be adhered to during issuance and beyond.
 
-This spec aims to create a generic standard ruleset specification so that any issuer can publish and refer to a pre-defined set of rules for any compliance profile. Ideally, these validation rules stored on-chain would enable the rules to be referenced and used ubiquitously by any issuer of security tokens and/or compliance manager.
+This specification outlines a generic standard ruleset specification so that any issuer can publish and refer to a pre-defined set of rules for any compliance profile. Ideally, these validation rules stored on-chain would enable the rules to be referenced and used ubiquitously by any issuer of security tokens and/or compliance manager.
 
 #### Compliance specifications
 
@@ -15,7 +15,7 @@ When issuing a new token, issuers must define their own compliance specification
 
 Example compliance specification:
 
-* [assetblock-compliance-specification-1.json](./complianceSpec1.json)
+* [assetblock-compliance-specification-1.json](./compliance-example.json)
 
 ### Key Terms
 
@@ -29,7 +29,7 @@ Example compliance specification:
 
 ### 1. Creating a Compliance Specification
 
-Publishing a compliance specification requires the creator to maintain a publicly-available reference document and a checksum verifiying its authenticity. Individual rules and error states must be defined off-chain to keep compliance specifications within the 1k notes field limit.
+Publishing a compliance specification requires the creator to maintain a publicly-available reference document and a checksum verifiying its authenticity. Individual rules and error states must be defined off-chain.
 
 #### Specification
 |Key|Type|Required|Validation|Description|

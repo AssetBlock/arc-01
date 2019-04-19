@@ -54,9 +54,21 @@
             "description": "Equality validation"
           },
           "condition": {
-            
+            "$ref": "#definitions/condition"
           }    
+        }
+      },
+      "condition": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string"            
+          },
+          "max": {
+            "type": "number"
+          }
+        }
       }       
-    },
+    }
   }
 }
