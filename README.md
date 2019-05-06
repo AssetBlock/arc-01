@@ -6,14 +6,14 @@ While Algorand develops its borderless economy for business, it’s essential to
 
 This standard is driven by a continued observation in existing blockchain ecosystems; That any blockchain, regardless of its  implementation of “smart contract” technology, cannot support a purely **touchless** security token standard to the satisfaction of any governing regulatory body while _also_ protecting the issuer’s choice of who to share their sensitive personal information with. In existing ecosystems implementing smart contracts, issuers develop their own proprietary whitelists while collecting sensitive investor information. This creates multiple centralized points of failure that gives investors less control over their privacy, and dissuades them from diversifying into alternative investments or even breaking into blockchain investing in the first place.
 
-In a system implementing a mature `ARC-01` standard (following community review and feedback), this would be mitigated. This standard aims to create an **economy of choice** for issuers of security tokens to decide who will manage and control the compliance of their tokens by proposing a standard for compliance verification including investor validation checks, distributions, interventions, and error states all published to the Algorand blockchain. 
+In a system implementing a mature `ARC-01` standard (following community review and feedback), this would be mitigated. This standard aims to create an **economy of choice** for issuers of security tokens to decide who will manage and control the compliance of their tokens by proposing a standard for compliance verification including investor validation checks, distributions, interventions, and error states all published to the Algorand blockchain.
 
 This standard also aims to create an ecosystem wherein investors can trust any one single compliance provider and tie that compliance profile to their account(s). Any compliance body adhering to the `ARC-01` standard would be able to confirm an investor’s compliance profile, which creates an abundance of choice for investors to choose any compliant legal entity adhering to the standard. Issuers would no longer require any additional sensitive personal information from investors, allowing investors a powerful control over their own financial profile and personal data while only ever having to keep it updated in one place.
 
 
 ### Important Considerations
 
-* The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the [maximum encoded 1k size](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write). This standard makes it a priority whenever possible to keep payload sizes manageable. 
+* The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the [maximum encoded 1k size](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write). This standard makes it a priority whenever possible to keep payload sizes manageable.
 * Whenever possible, information sent in the notes field will adhere to a **transaction-only** approach, in that any computed properties that can be derived from looking at a history of transfers will not be specified in this document. This keeps the burden of proof purely on the chain, rather than on the issuer or investors having to update transaction details or totals. This also opens up a potential path for the development of custom interpretation engines or smart contract support to be added incrementally over time.
 ** Example: To approve a transfer of tokens from investor1 to investor2, the compliance manager is not required to update the chain with the total number of held tokens by each, but rather only show the number of tokens that were added or removed from their relative balances.
 
@@ -26,7 +26,7 @@ For the purposes of the doc below we are using the following key terms:
 
 **Issuer**: The creator and owner of the token controlling the securities the token represents. Responsible for defining the compliance profile of their token, as well as an address of an approved `compliance manager`. Controls the private keys of the `issuer-address` account in the examples below.
 
-**Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-address` account in the examples below. 
+**Investor**: An investor who will receive, hold, and request transfers of tokens. Controls the private keys of their own `investor[n]-address` account in the examples below.
 
 **Third-Party**: A manager or other non-investor stakeholder who can update or provide documents updating the status of a particular issued security token.
 
@@ -35,18 +35,18 @@ For the purposes of the doc below we are using the following key terms:
 
 ## Compliance
 
-Before a token may be created, an issuer must either publish or reference a published [compliance specification](./compliance.md) transaction on the blockchain that their token will adhere to. The `compliance-manager-address` requirement in the [Create a Token](#create-a-token) transaction below will be responsible for token distributions and balance changes moving forward. 
+Before a token may be created, an issuer must either publish or reference a published [compliance specification](./compliance.md) transaction on the blockchain that their token will adhere to. The `compliance-manager-address` requirement in the [Create a Token](#create-a-token) transaction below will be responsible for token distributions and balance changes moving forward.
 
 
 ## Token Lifecycle
 The standard for each step of a token's lifecycle is detailed below:
 
-|Step|Initiating Role| 
+|Step|Initiating Role|
 |----|----|
 |[Create a Token](#create-a-token)|Issuer|
 |[Requesting Issuance or Transfer of Tokens](#requesting-issuance-or-transfer-of-tokens)|Issuer or Investor|
 |[Approve Transfer](#approving-a-transfer)|Compliance Manager|
-|[Deny Transfer](#denying-a-transfer) | Compliance Manager| 
+|[Deny Transfer](#denying-a-transfer) | Compliance Manager|
 |[Update Token Compliance Details](#updating-token-compliance-details) | Issuer |
 |[Adding Token Documents](#adding-token-documents)|Investor or Third Party|
 |[Request Update to Token Distribution](#request-update-to-token-distribution) | Issuer |
@@ -73,7 +73,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
   to: 'issuer-public-address',
   amt: 0,
   fee: 1,
-  notes: {    
+  notes: {
     tknName: 'MyToken',
     tknSymbol: 'MYT',
     qty: 10000,
@@ -96,20 +96,20 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 
 ##### Transfer Request Types
 
-**BASIC**: A standard transfer used for primary issuance and secondary market transfers. The requesting party expects a transfer to be honored pending the proper checks. 
+**BASIC**: A standard transfer used for primary issuance and secondary market transfers. The requesting party expects a transfer to be honored pending the proper checks.
 
 **CHECK**: A facsimile of a real transfer. Compliance manager would post a transaction that indicates whether or not a transfer would be  approved or denied with transfer quantity 0 in either case.
 
 **FORCE**: A forced transfer, required by law, compliance, legal settlement, etc. Issuer sends request to compliance manager with reason, perhaps even hashing the court order, which is securely stored off-chain.  This mirrors a standard transfer within the standard.
 
 #### Specification
-|Key|Type|Required|Additional Validation|Description| 
+|Key|Type|Required|Additional Validation|Description|
 |----|----|----|----|----|
 |qty|Integer|true||Quantity of tokens to issue or transfer|
 |type|String|true|Must be equal to one of the possible fixed-length request type constant codes: `BASIC`, `FORCE`, `CHECK`| The type of request being made of the compliance manager |
 |toAddr|String|true||Intended recipient address|
 |tknSymbol|String|true| `length >= 3 && length <= 5 `|Required symbol for token|
-|meta|Object|false||Freeform metadata field| 
+|meta|Object|false||Freeform metadata field|
 
 
 #### Example Algorand transaction payload:
@@ -135,12 +135,12 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 ### Approving a Transfer
 
 #### Specification
-|Key|Type|Required|Additional Validation|Description| 
+|Key|Type|Required|Additional Validation|Description|
 |----|----|----|----|----|
 |tfrStatus|String|true| must match status codes `['APPROVED', 'DENIED']`| Confirmation as to whether or not the compliance checks passed for both parties|
 |tfrTotal|Integer|true| | Total number of tokens transferred |
 |fromAddr|String|true||Sending address|
-|txnRef|String|true|Must be valid transaction id|The transaction id of the originating transfer request from the issuer or investor| 
+|txnRef|String|true|Must be valid transaction id|The transaction id of the originating transfer request from the issuer or investor|
 |tknSymbol|String|true| `length >= 3 && length <= 5 `| Unique token symbol from issuer |
 |meta|Object|false| |Freeform metadata field|
 
@@ -154,7 +154,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   fee: 1,
   notes: {
     tfrStatus: 'APPROVED',
-    tfrTotal: 50,    
+    tfrTotal: 50,
     txnRef: `transaction-id-of-transfer-request`
     fromAddr: 'investor1-address',
     tknSymbol: 'MYT',
@@ -171,11 +171,11 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 |tfrStatus|String|true| must match status codes `['APPROVED', 'DENIED']`| Confirmation as to whether or not the compliance checks passed for both parties|
 |tfrTotal|Integer|true| | Total number of tokens transferred |
 |fromAddr|String|true||Sending address|
-|txnRef|String|true|Must be valid transaction id|The transaction id of the originating transfer request from the issuer or investor| 
+|txnRef|String|true|Must be valid transaction id|The transaction id of the originating transfer request from the issuer or investor|
 |errCode|String|true| Must match error specification code defined in [compliance specification rules](./compliance.md) | Compliance error that prevented transfer from resolving|
 |tknSymbol|String|true| `length >= 3 && length <= 5 `| Unique token symbol from issuer |
 |meta|Object|false| |Freeform metadata field|
- 
+
 
 #### Example Algorand transaction payload:
 ```js
@@ -184,7 +184,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   to: 'investor2-address',
   amt: 0,
   fee: 1,
-  notes: {    
+  notes: {
     tfrStatus: 'DENIED',
     txnRef: `transaction-id-of-transfer-request`
     tfrTotal: 0,
@@ -212,12 +212,12 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   to: 'issuer-address',
   amt: 0,
   fee: 1,
-  notes: {    
+  notes: {
     tknSymbol: 'MYT',
     compliance: {
       managers: ['compliance-manager-address'],
       specTxn: 'compliance-tx-id',
-    },    
+    },
   }
 }
 ```
@@ -237,15 +237,15 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 #### Example Algorand transaction payload:
 ```js
 {
-  from: 'issuer-address|third-party-address',
+  from: 'issuer-address',
   to: 'issuer-address',
   amt: 0,
   fee: 1,
-  notes: {   
+  notes: {
     tknSymbol: 'MYT',
     docs: [{
       link: 'https://token.com/1.json',
-      hash: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',      
+      hash: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
     }],
   },
 }
@@ -276,12 +276,12 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 
     // Issue More Equity distribution options
     type: 'ISSUE_MORE_EQUITY',
-    qty: 5000,    
+    qty: 5000,
 
-    // Burn After Buyback distribution options   
+    // Burn After Buyback distribution options
     type: 'BURN_AFTER_BUYBACK',
     txnId: 'transaction-id-of-approved-buyback',
-    qty: 50    
+    qty: 50
   }
 }
 ```
