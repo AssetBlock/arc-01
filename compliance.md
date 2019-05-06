@@ -1,4 +1,3 @@
-
 # Compliance
 
 ## Summary
@@ -7,17 +6,25 @@ Unlike utility tokens, security tokens have an added layer of controls due to ne
 
 This specification outlines a generic standard ruleset specification so that any issuer can publish and refer to a pre-defined set of rules for any compliance profile. Ideally, these validation rules stored on-chain would enable the rules to be referenced and used ubiquitously by any issuer of security tokens and/or compliance manager.
 
-#### Compliance specifications
+### Important Considerations
 
-**IMPORTANT NOTE**: THIS IS NOT FINAL, The format proposed here, while a valid json-schema spec, is an example illustrating a few broad concepts like how we might handle rules and conditional requirements in a json format. We're currently collecting feedback and looking to change this format, potentially changing the outline entirely.
+* Depending on demand and market demand a "certificate of accreditation" transaction posted by the compliance manager to the chain might be a worthwhile enhancement to discuss. Being able to point at a valid and current transaction proving compliance could become an effective efficiency and speed improvement for multiple parties in the process.
+
+### Compliance specifications
+
+**IMPORTANT NOTE**: THIS IS NOT FINAL, The format proposed here, while a valid json-schema spec, is an example illustrating a few broad concepts like how we might handle rules and conditional requirements in a json format. We're currently collecting feedback and looking to change this format, potentially changing the outline entirely or adopting combinations or other well-established standards.
 
 When issuing a new token, issuers must define their own compliance specifications using a valid `ARC-01`-formatted document:
 
-* [Example `ARC-01 JSON Schema Standard`](./schema.json)
+<<<<<<< Updated upstream
+* [Example `ARC-01` JSON Schema Standard](./schema.json)
+=======
+- [Example `ARC-01 JSON Schema Standard`](./schema.json)
+>>>>>>> Stashed changes
 
 Example compliance specification:
 
-* [assetblock-compliance-specification-1.json](./compliance-example.json)
+- [assetblock-compliance-specification-1.json](./compliance-example.json)
 
 ### Key Terms
 
@@ -28,20 +35,22 @@ Example compliance specification:
 1. [Creating a Compliance Specification](#creating-a-compliance-specification)
 1. [Updating a Compliance Specification](#updating-a-compliance-specification)
 
-
 ### 1. Creating a Compliance Specification
 
 Publishing a compliance specification requires the creator to maintain a publicly-available reference document and a checksum verifiying its authenticity. Individual rules and error states must be defined off-chain.
 
 #### Specification
-|Key|Type|Required|Validation|Description|
-|----|----|----|----|----|
-|specUri|String|true|Must be a valid `JSON` file following the `ARC-01 document specification` json schema |Public url to compliance spec details, error handling, and description |
-|specChecksum|String|true|`SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value|||details|Object|true|||
-|details|Object|false|||
 
+| Key          | Type   | Required | Validation                                                                                                        | Description                                                            |
+| ------------ | ------ | -------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| txType       | String | true     | `length <=5`                                                                                                      | Unique standard identifier.                                            |
+| opType       | String | true     | `length <=5`                                                                                                      | Operation type outlined by standard.                                   |
+| specUri      | String | true     | Must be a valid `JSON` file following the `ARC-01 document specification` json schema                             | Public url to compliance spec details, error handling, and description |
+| specChecksum | String | true     | `SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value |                                                                        |  | details | Object | true |  |  |
+| details      | Object | false    |                                                                                                                   |                                                                        |
 
 #### Example Algorand transaction payload:
+
 ```js
 {
   from: 'creator-public-address',
@@ -49,6 +58,8 @@ Publishing a compliance specification requires the creator to maintain a publicl
   amt: 0,
   fee: 1,
   notes: {
+    txType: 'ARC01',
+    opType: 'ADSPC',
     specUri: '',
     specChecksum: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
     details: {},
@@ -56,19 +67,22 @@ Publishing a compliance specification requires the creator to maintain a publicl
 }
 ```
 
-
 ### 2. Updating a Compliance Specification
 
 Updating a compliance specification requires the creator to update unique values for `specUrl`, `specVersion`, and `specChecksum`. This will enable a clear upgrade path and auditing to previously-reviewed transactions on the blockchain.
 
 #### Specification
-|Key|Type|Required|Validation|Description|
-|----|----|----|----|----|
-|specUri|String|true|Must be a valid `JSON` file following the `ARC-01 document specification` json schema |Public url to compliance spec details, error handling, and description |
-|specChecksum|String|true|`SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value||
-|details|Object|false|||
+
+| Key          | Type   | Required | Validation                                                                                                        | Description                                                            |
+| ------------ | ------ | -------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| txType       | String | true     | `length <=5`                                                                                                      | Unique standard identifier.                                            |
+| opType       | String | true     | `length <=5`                                                                                                      | Operation type outlined by standard.                                   |
+| specUri      | String | true     | Must be a valid `JSON` file following the `ARC-01 document specification` json schema                             | Public url to compliance spec details, error handling, and description |
+| specChecksum | String | true     | `SHA-3` checksum. The length [`224`, `256`, `384`, `512`] followed by a `:` character must precede checksum value |                                                                        |
+| details      | Object | false    |                                                                                                                   |                                                                        |
 
 #### Example Algorand transaction payload:
+
 ```js
 {
   from: 'creator-public-address',
@@ -76,6 +90,8 @@ Updating a compliance specification requires the creator to update unique values
   amt: 0,
   fee: 1,
   notes: {
+    txType: 'ARC01',
+    opType: 'UPSPC',
     specUri: 'assetblock-compliance-specification-1.json',
     specChecksum: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
     details: {},
