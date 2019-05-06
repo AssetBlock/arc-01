@@ -322,9 +322,4 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 
 #### Additional Notes / Restrictions
 
-<<<<<<< Updated upstream
-
-- # In the instance of a `SPLIT`, pending approval from the compliance manager, the compliance manager will post an "APPROVE" transaction for each investor treating this as the reference transaction.
-
-* In the instance of a `SPLIT`, pending approval from the compliance manager, the compliance manager will post an "APPROVE" transaction for each investor treating this as the reference transaction.
-  > > > > > > > Stashed changes
+- In the instance of a `SPLIT`, pending approval from the compliance manager, the compliance manager will post an "APPROVE" transaction for each investor treating this as the reference transaction.
