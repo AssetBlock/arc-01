@@ -61,16 +61,16 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 
 #### Specification
 
-| Key          | Type   | Required | Validation                                         | Description                                                                                                                                                             |
-| ------------ | ------ | -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txType       | String | true     | `length <=5`                                       | Unique standard identifier.                                                                                                                                             |
-| opType       | String | true     | `length <=5`                                       | Operation type outlined by standard.                                                                                                                                    |
-| tknName      | String | false    | `length <=26`                                      | The name of the token                                                                                                                                                   |
-| tknSymbol    | String | true     | `length >= 3 && <= 5`                              | The symbol of the token for exchange and unique identification purposes                                                                                                 |
-| qty          | Number | true     | `> 0`                                              | Total tokens available at initial offering                                                                                                                              |
-| decPlaces    | Number | false    | `length<= 18`                                      | Number of decimal places to honor                                                                                                                                       |
-| managers     | Array  | true     | `at least one item. items must have length === 58` | Public address of the compliance manager who will oversee token distributions and other compliance efforts. See [compliance specification](./compliance.md) for details |
-| specLocation | String | true     | `length === 52`                                    | The transaction location of the spec's publication to the blockchain                                                                                                    |
+| Key       | Type   | Required | Validation                                         | Description                                                                                                                                                             |
+| --------- | ------ | -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txType    | String | true     | `length <=5`                                       | Unique standard identifier.                                                                                                                                             |
+| opType    | String | true     | `length <=5`                                       | Operation type outlined by standard.                                                                                                                                    |
+| tknName   | String | false    | `length <=26`                                      | The name of the token                                                                                                                                                   |
+| tknSymbol | String | true     | `length >= 3 && <= 5`                              | The symbol of the token for exchange and unique identification purposes                                                                                                 |
+| qty       | Number | true     | `> 0`                                              | Total tokens available at initial offering                                                                                                                              |
+| decPlaces | Number | false    | `length<= 18`                                      | Number of decimal places to honor                                                                                                                                       |
+| managers  | Array  | true     | `at least one item. items must have length === 58` | Public address of the compliance manager who will oversee token distributions and other compliance efforts. See [compliance specification](./compliance.md) for details |
+| specTxn   | String | true     | `length === 52`                                    | The transaction location of the spec's publication to the blockchain                                                                                                    |
 
 | meta | Object | false | | A utility field for additional metadata for use by the issuer or to provide more information |
 
@@ -90,7 +90,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
     qty: 10000,
     decPlaces: 16,
     managers: ['compliance-manager-address'],
-    specLocation: 'compliance-tx-id',
+    specTxn: 'compliance-tx-id',
     meta: {}
   }
 }
@@ -226,12 +226,13 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 
 #### Specification
 
-| Key        | Type   | Required | Additional Validation | Description                                                                                                                                                                                         |
-| ---------- | ------ | -------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txType     | String | true     | `length <=5`          | Unique standard identifier.                                                                                                                                                                         |
-| opType     | String | true     | `length <=5`          | Operation type outlined by standard.                                                                                                                                                                |
-| tknSymbol  | String | true     | `length >= 3 && <= 5` | The symbol of the token for exchange and unique identification purposes                                                                                                                             |
-| compliance | Object | true     |                       | Contains Transaction ID where compliance spec was published within notes field and an array of at least one compliance manager address. See [compliance specification](./compliance.md) for details |
+| Key       | Type   | Required | Additional Validation                              | Description                                                                                                                                                             |
+| --------- | ------ | -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txType    | String | true     | `length <=5`                                       | Unique standard identifier.                                                                                                                                             |
+| opType    | String | true     | `length <=5`                                       | Operation type outlined by standard.                                                                                                                                    |
+| tknSymbol | String | true     | `length >= 3 && <= 5`                              | The symbol of the token for exchange and unique identification purposes                                                                                                 |
+| managers  | Array  | true     | `at least one item. items must have length === 58` | Public address of the compliance manager who will oversee token distributions and other compliance efforts. See [compliance specification](./compliance.md) for details |
+| specTxn   | String | true     | `length === 52`                                    | The transaction location of the spec's publication to the blockchain                                                                                                    |
 
 #### Example Algorand transaction payload:
 
@@ -245,10 +246,8 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
     txType: 'ARC01',
     opType: 'UPCMP',
     tknSymbol: 'MYT',
-    compliance: {
-      managers: ['compliance-manager-address'],
-      specTxn: 'compliance-tx-id',
-    },
+    managers: ['compliance-manager-address'],
+    specTxn: 'compliance-tx-id',
   }
 }
 ```
