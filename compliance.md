@@ -8,7 +8,7 @@ This specification outlines a generic standard ruleset specification so that any
 
 ### Important Considerations
 
-* Depending on demand and market demand a "certificate of accreditation" transaction posted by the compliance manager to the chain might be a worthwhile enhancement to discuss. Being able to point at a valid and current transaction proving compliance could become an effective efficiency and speed improvement for multiple parties in the process.
+- Depending on demand and market demand a "certificate of accreditation" transaction posted by the compliance manager to the chain might be a worthwhile enhancement to discuss. Being able to point at a valid and current transaction proving compliance could become an effective efficiency and speed improvement for multiple parties in the process.
 
 ### Compliance specifications
 
@@ -16,11 +16,7 @@ This specification outlines a generic standard ruleset specification so that any
 
 When issuing a new token, issuers must define their own compliance specifications using a valid `ARC-01`-formatted document:
 
-<<<<<<< Updated upstream
-* [Example `ARC-01` JSON Schema Standard](./schema.json)
-=======
-- [Example `ARC-01 JSON Schema Standard`](./schema.json)
->>>>>>> Stashed changes
+- # [Example `ARC-01` JSON Schema Standard](./schema.json)
 
 Example compliance specification:
 
