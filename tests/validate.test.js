@@ -3,20 +3,24 @@ const validate = require('../src/validate.js');
 it('checks for required arguments', function() {
   expect(() => {
     validate();
-  }).toThrow(`Please specify an operation and options map.`);
+  }).toThrow(`Please specify a valid operation name with options.`);
 });
-it('checks for a valid operation', function() {
+
+it('checks for valid operation names', function() {
   expect(() => {
-    validate('foo', {});
-  }).toThrow(`Operation 'foo' not found.`);
+    validate('create', {});
+  }).toThrow(`Error: invalid operation name.`);
 });
-it('only allows specified operation option keys', function() {
-  expect(() => {
-    validate('createToken', { foo: 'bar', test: 'rawr' });
-  }).toThrow(`The following user options are invalid: foo,test`);
+
+it('successfully validates create option', function() {
+  expect(
+    validate('CREATE', {
+      tknSymbol: 'TEST',
+      qty: 1000000,
+      decPlaces: 18,
+      managers: ['JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ'],
+      specLocation:
+        'WTDT3V7BTTS2O3MRMM2C77TQ2WAM7ILZGMTLFZ2YUDBNRDDDMBJFK6WWI4',
+    })
+  ).toBe(true);
 });
-// it('requires operation option keys', function() {
-//   expect(() => {
-//     validate('createToken', { meta: {} });
-//   }).toThrow(`The following user options are invalid: foo,test`);
-// });

@@ -1,60 +1,40 @@
-const fieldOptions = {
-  createToken: {
-    tknName: {},
-    tknSymbol: { required: true },
-    qty: { required: true },
-    decPlaces: {},
-    compliance: { required: true },
-    meta: {},
-  },
+const Ajv = require('ajv');
+const ajv = new Ajv({ allErrors: true });
+const {
+  createToken,
+  requestTransfer,
+  approveTransfer,
+  denyTransfer,
+  updateCompliance,
+  addTokenDocument,
+  updateDistribution,
+} = require('./schemas');
+
+const operationNameToSchemaMap = {
+  CREATE: createToken,
+  REQUEST_TRANSFER: requestTransfer,
+  APPROVE_TRANSFER: approveTransfer,
+  DENY_TRANSFER: denyTransfer,
+  UPDATE_COMPLIANCE: updateCompliance,
+  ADD_DOCUMENT: addTokenDocument,
+  UPDATE_DISTRIBUTION: updateDistribution,
 };
 
-function invalidUserOptions(operation, userOptions) {
-  const validKeys = Object.keys(fieldOptions[operation]);
-  const invalidOptions = [];
-
-  Object.keys(userOptions).forEach(userOption => {
-    if (validKeys.indexOf(userOption) === -1) {
-      invalidOptions.push(userOption);
-    }
-  });
-
-  return invalidOptions;
-}
-
-// function missingRequiredFields(operation, options) {
-//   const requiredFields = fieldOptions[operation];
-//   const invalidOptions = [];
-
-//   Object.keys(options).forEach(userOption => {
-//     if (fieldOptions[operation][userOption].required) {
-//       invalidOptions.push(userOption);
-//     }
-//   });
-
-//   return invalidOptions;
-// }
-
-function validate(operation, options) {
-  if (!options || !operation) {
-    throw new Error(`Please specify an operation and options map.`);
+function validate(operation, data) {
+  if (!data || !operation) {
+    throw new Error('Please specify a valid operation name with options.');
   }
-  if (!fieldOptions[operation]) {
-    throw new Error(`Operation '${operation}' not found.`);
-  }
-  if (invalidUserOptions(operation, options).length > 0) {
-    throw new Error(
-      `The following user options are invalid: ${invalidUserOptions(
-        operation,
-        options
-      )}.`
-    );
-  }
-  if (missingRequiredFields(operation, options).length > 0) {
-    throw new Error(`Please provide required fields`);
+  if (!operationNameToSchemaMap[operation]) {
+    throw new Error('Error: invalid operation name.');
   }
 
-  return fieldOptions[operation];
+  const validateSchema = ajv.compile(operationNameToSchemaMap[operation]);
+  const valid = validateSchema(data);
+
+  if (!valid) {
+    console.error(validateSchema.errors);
+  }
+  return valid;
 }
 
 module.exports = validate;

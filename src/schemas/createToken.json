@@ -1,0 +1,22 @@
+{
+  "$id": "https://www.github.com/AssetBlock/arc-01/createToken.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tknSymbol", "qty", "decPlaces", "managers", "specLocation"],
+  "properties": {
+    "txType": { "type": "string", "maximum": 5 },
+    "opType": { "type": "string", "maximum": 5 },
+    "tknName": { "type": "string", "maximum": 16 },
+    "tknSymbol": { "type": "string", "maximum": 5 },
+    "qty": { "type": "number", "minimum": 0 },
+    "decPlaces": { "type": "number", "maximum": 18 },
+    "managers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minimum": 58, "maximum": 58 }
+    },
+    "specLocation": { "type": "string", "minimum": 52, "maximum": 52 },
+    "meta": { "type": "object" }
+  }
+}
