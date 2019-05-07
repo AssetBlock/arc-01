@@ -268,7 +268,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 
 ```js
 {
-  from: 'issuer-address',
+  from: 'issuer-address|third-party-address',
   to: 'issuer-address',
   amt: 0,
   fee: 1,
