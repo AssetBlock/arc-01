@@ -2,6 +2,11 @@
 
 An open source hybrid security token standard proposal for Algorand
 
+## Message to Developers
+
+This is NOT a production-ready repo (yet). We are building proof-of-concept tools in this repo while collecting feedback from the community. Any feedback about our CLI, unit testing, or other opportunities to improve the standard specs are much appreciated. More details in the
+[development notes here](./development).
+
 ## Summary
 
 While Algorand develops its borderless economy for business, it’s essential to design and develop a compliant security token standard to drive adoption and provide a solid security token issuer and investor experience. `ARC-01` seeks to establish a “hybrid” security token framework taking advantage of the technology that Algorand will release along with their MainNet, coupled with the advantages of any manual compliance verification process from trusted third-parties.
@@ -14,8 +19,8 @@ This standard also aims to create an ecosystem wherein investors can trust any o
 
 ### Important Considerations
 
-- The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the [maximum encoded 1k size](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write). This standard makes it a priority whenever possible to keep payload sizes manageable.
-- Whenever possible, information sent in the notes field will adhere to a **transaction-only** approach, in that any computed properties that can be derived from looking at a history of transfers will not be specified in this document. This keeps the burden of proof purely on the chain, rather than on the issuer or investors having to update transaction details or totals. This also opens up a potential path for the development of custom interpretation engines or smart contract support to be added incrementally over time.
+- The following standard relies on the transation `notes` field to track and manage token distrubutions and compliance actions. Due to this reliance, all payloads must remain within the [maximum encoded 1k size](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write). As this standard develops, we will continue to look for better cost-saving measures.
+- When possible, this spec currently prioritizes a **transaction-only** approach, in that any computed properties that can be derived from looking at a history of transfers will not be specified in this document. This keeps the burden of proof purely on the chain, rather than on the issuer or investors having to update transaction details or totals. This also opens up a potential path for the development of custom interpretation engines or smart contract support to be added incrementally over time.
   - Example: To approve a transfer of tokens from investor1 to investor2, the compliance manager is not required to update the chain with the total number of held tokens by each, but rather only show the number of tokens that were added or removed from their relative balances.
 
 ### Key Terms
@@ -56,16 +61,18 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 
 #### Specification
 
-| Key        | Type   | Required | Validation            | Description                                                                                                                                                                                         |
-| ---------- | ------ | -------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txType     | String | true     | `length <=5`          | Unique standard identifier.                                                                                                                                                                         |
-| opType     | String | true     | `length <=5`          | Operation type outlined by standard.                                                                                                                                                                |
-| tknName    | String | false    | `length <=26`         | The name of the token                                                                                                                                                                               |
-| tknSymbol  | String | true     | `length >= 3 && <= 5` | The symbol of the token for exchange and unique identification purposes                                                                                                                             |
-| qty        | Number | true     | `> 0`                 | Total tokens available at initial offering                                                                                                                                                          |
-| decPlaces  | Number | false    | `length<= 18`         | Number of decimal places to honor                                                                                                                                                                   |
-| compliance | Object | true     |                       | Contains Transaction ID where compliance spec was published within notes field and an array of at least one compliance manager address. See [compliance specification](./compliance.md) for details |
-| meta       | Object | false    |                       | A utility field for additional metadata for use by the issuer or to provide more information                                                                                                        |
+| Key       | Type   | Required | Validation                                         | Description                                                                                                                                                             |
+| --------- | ------ | -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txType    | String | true     | `length <=5`                                       | Unique standard identifier.                                                                                                                                             |
+| opType    | String | true     | `length <=5`                                       | Operation type outlined by standard.                                                                                                                                    |
+| tknName   | String | false    | `length <=26`                                      | The name of the token                                                                                                                                                   |
+| tknSymbol | String | true     | `length >= 3 && <= 5`                              | The symbol of the token for exchange and unique identification purposes                                                                                                 |
+| qty       | Number | true     | `> 0`                                              | Total tokens available at initial offering                                                                                                                              |
+| decPlaces | Number | false    | `length<= 18`                                      | Number of decimal places to honor                                                                                                                                       |
+| managers  | Array  | true     | `at least one item. items must have length === 58` | Public address of the compliance manager who will oversee token distributions and other compliance efforts. See [compliance specification](./compliance.md) for details |
+| specTxn   | String | true     | `length === 52`                                    | The transaction location of the spec's publication to the blockchain                                                                                                    |
+
+| meta | Object | false | | A utility field for additional metadata for use by the issuer or to provide more information |
 
 #### Example Algorand transaction payload:
 
@@ -82,10 +89,8 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
     tknSymbol: 'MYT',
     qty: 10000,
     decPlaces: 16,
-    compliance: {
-      managers: ['compliance-manager-address'],
-      specLocation: 'compliance-tx-id',
-    },
+    managers: ['compliance-manager-address'],
+    specTxn: 'compliance-tx-id',
     meta: {}
   }
 }
@@ -221,12 +226,13 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
 
 #### Specification
 
-| Key        | Type   | Required | Additional Validation | Description                                                                                                                                                                                         |
-| ---------- | ------ | -------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txType     | String | true     | `length <=5`          | Unique standard identifier.                                                                                                                                                                         |
-| opType     | String | true     | `length <=5`          | Operation type outlined by standard.                                                                                                                                                                |
-| tknSymbol  | String | true     | `length >= 3 && <= 5` | The symbol of the token for exchange and unique identification purposes                                                                                                                             |
-| compliance | Object | true     |                       | Contains Transaction ID where compliance spec was published within notes field and an array of at least one compliance manager address. See [compliance specification](./compliance.md) for details |
+| Key       | Type   | Required | Additional Validation                              | Description                                                                                                                                                             |
+| --------- | ------ | -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txType    | String | true     | `length <=5`                                       | Unique standard identifier.                                                                                                                                             |
+| opType    | String | true     | `length <=5`                                       | Operation type outlined by standard.                                                                                                                                    |
+| tknSymbol | String | true     | `length >= 3 && <= 5`                              | The symbol of the token for exchange and unique identification purposes                                                                                                 |
+| managers  | Array  | true     | `at least one item. items must have length === 58` | Public address of the compliance manager who will oversee token distributions and other compliance efforts. See [compliance specification](./compliance.md) for details |
+| specTxn   | String | true     | `length === 52`                                    | The transaction location of the spec's publication to the blockchain                                                                                                    |
 
 #### Example Algorand transaction payload:
 
@@ -240,10 +246,8 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
     txType: 'ARC01',
     opType: 'UPCMP',
     tknSymbol: 'MYT',
-    compliance: {
-      managers: ['compliance-manager-address'],
-      specTxn: 'compliance-tx-id',
-    },
+    managers: ['compliance-manager-address'],
+    specTxn: 'compliance-tx-id',
   }
 }
 ```

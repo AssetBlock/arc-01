@@ -1,0 +1,36 @@
+{
+  "name": "arc-01",
+  "version": "0.0.1",
+  "description": "A security token standard proposal for Algorand",
+  "main": "cli.js",
+  "bin": {
+    "arc1": "./cli.js"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AssetBlock/arc-01.git"
+  },
+  "keywords": [
+    "algorand",
+    "security token",
+    "standard proposal",
+    "compliance"
+  ],
+  "author": "@jciruolo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AssetBlock/arc-01/issues"
+  },
+  "homepage": "https://github.com/AssetBlock/arc-01#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "ajv": "^6.10.0",
+    "lodash": "^4.17.11",
+    "yargs": "^13.2.2"
+  }
+}
