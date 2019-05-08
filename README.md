@@ -5,7 +5,7 @@ An open source hybrid security token standard proposal for Algorand
 ## Message to Developers
 
 This is NOT a production-ready repo (yet). We are building proof-of-concept tools in this repo while collecting feedback from the community. Any feedback about our CLI, unit testing, or other opportunities to improve the standard specs are much appreciated. More details in the
-[development notes here](./development).
+[development notes here](./development.md).
 
 ## Summary
 
