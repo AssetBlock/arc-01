@@ -1,4 +1,4 @@
-const { TRANSACTION_TYPE } = require('./lib/constants.js');
+const { TRANSACTION_TYPE, NOTE_BYTE_LIMIT } = require('./lib/constants.js');
 
 function encodePayload(operation, data) {
   const notePayload = {
@@ -6,8 +6,18 @@ function encodePayload(operation, data) {
     opType: operation,
     ...data,
   };
+
   // TODO: Add encoding step here to reduce size of field
-  // TODO: Add test to make sure that the size is under 1kb
+
+  // Validate the size of the payload.
+  const noteByteSize = Buffer.byteLength(JSON.stringify(notePayload), 'utf8');
+  if (noteByteSize > NOTE_BYTE_LIMIT) {
+    throw new Error(
+      `Note is ${noteByteSize} bytes, which is ${noteByteSize -
+        NOTE_BYTE_LIMIT} bytes greater than the ${NOTE_BYTE_LIMIT} byte limit.`
+    );
+  }
+
   return notePayload;
 }
 
