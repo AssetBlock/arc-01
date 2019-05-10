@@ -2,6 +2,7 @@
 
 ### Known Issues
 
+- Split out security token functions from basic tokens in code
 - Finish writing out schemas for remaining operations
   - Hash validation
   - Conditions for token distribution
