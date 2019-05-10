@@ -1,5 +1,5 @@
 {
-  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/createToken.json",
+  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/basic/createToken.json",
   "type": "object",
   "additionalProperties": false,
   "required": ["tknSymbol", "qty", "decPlaces", "managers"],
