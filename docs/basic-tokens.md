@@ -7,7 +7,7 @@ This specification serves as the core baseline for the additional token types ou
 
 ### Key Terms
 
-**Token**: Digitial representations of participant ownership of a good or service.
+**Token**: Digitial representation of value within a network.
 
 **Issuer**: The creator and owner of the token. Responsible for defining a standard Algorand address that will control distributions and prevent double-payments. Controls the private keys of the `issuer-address` account in the examples below.
 
