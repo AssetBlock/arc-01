@@ -3,7 +3,8 @@ const { encodePayload } = require('./encode.js');
 
 function request(operationName, args) {
   try {
-    validate(operationName, args);
+    validate(
+      operationName, args);
   } catch (err) {
     return err;
   }

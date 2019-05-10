@@ -9,18 +9,26 @@ it('checks for required arguments', function() {
 it('checks for valid operation names', function() {
   expect(() => {
     validate('create', {});
-  }).toThrow(`Error: invalid operation name.`);
+  }).toThrow(`Error: invalid operation name for this token type.`);
 });
 
-it('successfully validates create option', function() {
+it('successfully passes valid create option', function() {
   expect(
     validate('CREATE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
       managers: ['JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ'],
-      specLocation:
-        'WTDT3V7BTTS2O3MRMM2C77TQ2WAM7ILZGMTLFZ2YUDBNRDDDMBJFK6WWI4',
+    })
+  ).toBe(true);
+});
+
+it('successfully passes valid requestTransfer option', function() {
+  expect(
+    validate('REQUEST_TRANSFER', {
+      tknSymbol: 'TEST',
+      qty: 100,
+      toAddr: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ',
     })
   ).toBe(true);
 });
