@@ -32,3 +32,31 @@ it('successfully passes valid requestTransfer option', function() {
     })
   ).toBe(true);
 });
+
+
+it('successfully passes valid approveTransfer option', function() {
+  expect(
+    validate('APPROVE_TRANSFER', {
+      tfrStatus: 'APPROVED',
+      tfrTotal: 100,
+      txnRef: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHW',
+      fromAddr: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ',
+      tknSymbol: 'MYT',
+    })
+  ).toBe(true);
+});
+
+
+it('successfully passes valid denyTransfer option', function() {
+  expect(
+    validate('DENY_TRANSFER', {
+      tfrStatus: 'DENIED',
+      tfrTotal: 0,
+      txnRef: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHW',
+      fromAddr: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ',
+      tknSymbol: 'MYT',
+      errCode: 'ERR_01',
+
+    })
+  ).toBe(true);
+});
