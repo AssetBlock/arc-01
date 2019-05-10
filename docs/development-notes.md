@@ -9,7 +9,7 @@
 - Add better input sanitization
 - Write tests to parse ajv responses when validating json schemas
 - Better error output
-- Write tests to measure size of payloads
+- Write unit tests to measure size of payloads
 - Upgrade compliance example to v7 json-schema spec (with conditional support)
 - Investigate output format schema that optimizes for space
 
