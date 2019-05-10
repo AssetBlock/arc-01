@@ -1,27 +1,19 @@
 {
-  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/security/denyTransfer.json",
+  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/approveTransfer.json",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "tfrStatus",
-    "tfrTotal",
-    "txnRef",
-    "fromAddr",
-    "tknSymbol",
-    "errCode"
-  ],
+  "required": ["tfrStatus", "tfrTotal", "txnRef", "fromAddr", "tknSymbol"],
   "properties": {
     "txType": { "type": "string", "maximum": 5 },
     "opType": { "type": "string", "maximum": 5 },
     "tfrStatus": {
       "allOf": [{ "type": "string" }],
-      "oneOf": [{ "const": "DENIED" }]
+      "oneOf": [{ "const": "APPROVED" }]
     },
+    "tfrTotal": { "type": "number", "minimum": 0 },
     "txnRef": { "type": "string", "minimum": 52, "maximum": 52 },
-    "tfrTotal": { "type": "number", "minimum": 0, "maximum": 0 },
     "fromAddr": { "type": "string", "minimum": 58, "maximum": 58 },
     "tknSymbol": { "type": "string", "minimum": 3, "maximum": 5 },
-    "errCode": { "type": "string" },
     "meta": { "type": "object" }
   }
 }

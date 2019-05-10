@@ -1,5 +1,5 @@
 {
-  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/requestToken.json",
+  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/basic/requestTransfer.json",
   "type": "object",
   "additionalProperties": false,
   "required": ["tknSymbol", "qty", "toAddr"],

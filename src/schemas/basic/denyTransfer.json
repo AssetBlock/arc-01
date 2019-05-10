@@ -1,5 +1,5 @@
 {
-  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/security/denyTransfer.json",
+  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/denyTransfer.json",
   "type": "object",
   "additionalProperties": false,
   "required": [
