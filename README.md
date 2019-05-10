@@ -21,5 +21,5 @@ This is NOT a production-ready repo (yet). We are building proof-of-concept tool
 
 ### Modules
 
-* [Utility Tokens](./docs/utility-tokens.md)
+* [Basic Tokens](./docs/basic-tokens.md)
 * [Investment/Security Tokens](./docs/security-tokens.md)

@@ -1,6 +1,6 @@
 # ARC-01
 
-## Utility Tokens
+## Basic Tokens
 
 This specification serves as the core baseline for the additional token types outlined in the rest of this repository.
 
@@ -11,11 +11,9 @@ This specification serves as the core baseline for the additional token types ou
 
 **Issuer**: The creator and owner of the token. Responsible for defining a standard Algorand address that will control distributions and prevent double-payments. Controls the private keys of the `issuer-address` account in the examples below.
 
-**Manager**: The controlling algorand address that will control distributions and prevent double-payments. In the case of utility tokens, this will most likely be the issuer. The examples below assume the issuer address is also the manager of the tokens.
+**Manager**: The controlling algorand address that will control distributions and prevent double-payments. This will most often be the issuer. The examples below assume the issuer address is also the manager of the tokens.
 
 **Participant**: A user who will receive, hold, and request transfers of tokens. Controls the private keys of their own `participant[n]-address` account in the examples below.
-
-**Third-Party**: A manager or other non-participant stakeholder who can update or provide documents updating the status of a particular issued token.
 
 
 ## Basic Workflow
