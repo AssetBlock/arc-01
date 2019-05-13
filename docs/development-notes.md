@@ -2,7 +2,7 @@
 
 ### Known Issues
 
-- Split out security token functions from basic tokens in code
+- Remove approve/deny process from basic tokens. From/To fields should be issuer address.
 - Finish writing out schemas for remaining operations
   - Hash validation
   - Conditions for token distribution
