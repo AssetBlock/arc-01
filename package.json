@@ -2,6 +2,9 @@
   "name": "@assetblock/arc-01",
   "version": "1.0.0",
   "description": "Token standard proposals for Algorand",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "scripts": {
     "test": "jest"
