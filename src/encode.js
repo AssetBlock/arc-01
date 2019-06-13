@@ -7,8 +7,11 @@ function encodePayload(operation, data) {
     ...data,
   };
 
+  // Stringify note for encoding
+  const jsonNote = JSON.stringify(notePayload);
+
   // Validate the size of the payload, Algorand has a hard limit of 1k.
-  const noteByteSize = Buffer.byteLength(JSON.stringify(notePayload), 'utf8');
+  const noteByteSize = Buffer.byteLength(jsonNote, 'utf8');
   if (noteByteSize > NOTE_BYTE_LIMIT) {
     throw new Error(
       `Note is ${noteByteSize} bytes, which is ${noteByteSize -
@@ -16,7 +19,9 @@ function encodePayload(operation, data) {
     );
   }
 
-  return notePayload;
+  // Encoded note payload must be wrapped in Uint8Array
+  const encodedValue = Buffer.from(jsonNote);
+  return new Uint8Array(encodedValue);
 }
 
 module.exports = {

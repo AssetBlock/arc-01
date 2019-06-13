@@ -1,5 +1,5 @@
 {
-  "name": "arc-01",
+  "name": "@assetblock/arc-01",
   "version": "1.0.0",
   "description": "Token standard proposals for Algorand",
   "main": "index.js",
