@@ -7,17 +7,19 @@ it('throws correctly', function() {
 });
 
 it('creates a token', () => {
+  const expectedPayload = {
+    txType: 'ARC01',
+    opType: 'CREATE',
+    tknSymbol: 'TEST',
+    qty: 1000000,
+    decPlaces: 18,
+  };
+  const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
   expect(
     createPayload('CREATE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
     })
-  ).toEqual({
-    txType: 'ARC01',
-    opType: 'CREATE',
-    tknSymbol: 'TEST',
-    qty: 1000000,
-    decPlaces: 18,
-  });
+  ).toEqual(expectedEncodedValue);
 });
