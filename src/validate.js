@@ -2,9 +2,7 @@ const Ajv = require('ajv');
 const ajv = new Ajv({ allErrors: true });
 const {
   createToken,
-  requestTransfer,
-  approveTransfer,
-  denyTransfer,
+  transferToken,
 } = require('./schemas/basic');
 // const {
 //   createToken,
@@ -24,16 +22,16 @@ const TOKEN_TYPES = {
 const operationNameToSchemaMap = {
   BASIC: {
     CREATE: createToken,
-    REQUEST_TRANSFER: requestTransfer,
-    APPROVE_TRANSFER: approveTransfer,
-    DENY_TRANSFER: denyTransfer,
+    TRANSFER: transferToken,
   },
-  // REQUEST_TRANSFER: requestTransfer,
-  // APPROVE_TRANSFER: approveTransfer,
-  // DENY_TRANSFER: denyTransfer,
-  // UPDATE_COMPLIANCE: updateCompliance,
-  // ADD_DOCUMENT: addTokenDocument,
-  // UPDATE_DISTRIBUTION: updateDistribution,
+  SECURITY: {
+    // REQUEST_TRANSFER: requestTransfer,
+    // APPROVE_TRANSFER: approveTransfer,
+    // DENY_TRANSFER: denyTransfer,
+    // UPDATE_COMPLIANCE: updateCompliance,
+    // ADD_DOCUMENT: addTokenDocument,
+    // UPDATE_DISTRIBUTION: updateDistribution,
+  },
 };
 
 function validate(operation, data) {

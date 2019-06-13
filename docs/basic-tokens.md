@@ -16,7 +16,7 @@ This specification serves as the core baseline requirements of a token, handled 
 ## Basic Workflow
 
 1. **[Create a Token](#create-a-token)** - Issuer sends a "genesis transaction" to herself outlining token totals.
-2. **[Transfering Tokens](#)** -- Issuer sends a "transfer transaction" to herself outlining new token distribution and totals.
+2. **[Transfer Tokens](#transfer-tokens)** -- Issuer sends a "transfer transaction" to herself outlining distribution.
 
 ### Create a Token
 
@@ -60,9 +60,9 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the token
 
 
 
-### Distribute Tokens
+### Transfer Tokens
 
-To distribute tokens, an issuer posts a transaction to herself with the proper allocations made in the notes field of the transaction.
+To transfer tokens, an issuer posts a transaction to herself with the proper allocations made in the notes field of the transaction.
 
 #### Specification
 
@@ -72,7 +72,8 @@ To distribute tokens, an issuer posts a transaction to herself with the proper a
 | opType    | String | true     | `length <=5`                                       | Operation type outlined by standard.                                                                                                                                    |
 | tknSymbol | String | true     | `length >= 3 && <= 5`                              | The symbol of the token for exchange and unique identification purposes                                                                                                 |
 | qty       | Number | true     | `> 0`                                              | Total tokens available at initial offering                                                                                                                              |
-| toAddr    | String  | true     |                                                                                                          | Intended recipient address                               |
+| toAddr    | String  | true     |                                                                                                          | Recipient address                               |
+| fromAddr    | String  | true     |                                                                                                          | Sender address
 | meta | Object | false | | A utility field for additional metadata for use by the issuer to provide more information |
 
 #### Example Algorand transaction payload:
@@ -89,6 +90,7 @@ To distribute tokens, an issuer posts a transaction to herself with the proper a
     tknSymbol: 'MYT',
     qty: 1000,
     toAddr: 'participant-address',
+    fromAddr: 'investor-address', // or participant-address
     meta: {}
   }
 }
