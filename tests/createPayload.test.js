@@ -1,12 +1,11 @@
-var { request } = require('../src/core.js');
+var { createPayload } = require('../src/createPayload.js');
 
 it('creates a token', () => {
   expect(
-    request('CREATE', {
+    createPayload('CREATE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
-      managers: ['JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ'],
     })
   ).toEqual({
     txType: 'ARC01',
@@ -14,6 +13,5 @@ it('creates a token', () => {
     tknSymbol: 'TEST',
     qty: 1000000,
     decPlaces: 18,
-    managers: ['JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ'],
   });
 });

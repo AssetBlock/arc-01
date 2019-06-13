@@ -7,7 +7,7 @@ function encodePayload(operation, data) {
     ...data,
   };
 
-  // Validate the size of the payload.
+  // Validate the size of the payload, Algorand has a hard limit of 1k.
   const noteByteSize = Buffer.byteLength(JSON.stringify(notePayload), 'utf8');
   if (noteByteSize > NOTE_BYTE_LIMIT) {
     throw new Error(

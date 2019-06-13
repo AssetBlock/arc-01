@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
-const { request } = require('./src/core.js');
+const { createPayload } = require('./src/createPayload.js');
 const { OPERATION_NAMES } = require('./src/lib/constants.js');
 const { createToken } = require('./src/schemas');
 const pick = require('lodash/pick');
@@ -19,7 +19,7 @@ var argv = yargs
     argv => {
       const validProperties = Object.keys(createToken.properties);
       const filteredArgs = pick(argv, validProperties);
-      console.log(request(OPERATION_NAMES.CREATE, filteredArgs));
+      console.log(createPayload(OPERATION_NAMES.CREATE, filteredArgs));
     }
   )
   .command(

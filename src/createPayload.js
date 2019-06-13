@@ -1,7 +1,7 @@
-const validate = require('./validate.js');
+const { validate } = require('./validate.js');
 const { encodePayload } = require('./encode.js');
 
-function request(operationName, args) {
+function createPayload(operationName, args) {
   try {
     validate(
       operationName, args);
@@ -12,5 +12,5 @@ function request(operationName, args) {
 }
 
 module.exports = {
-  request,
+  createPayload,
 };

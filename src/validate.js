@@ -54,4 +54,4 @@ function validate(operation, data) {
   return valid;
 }
 
-module.exports = validate;
+module.exports = { validate };
