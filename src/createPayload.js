@@ -1,9 +1,9 @@
-const { validate } = require('./validate.js');
+const { validateSchema } = require('./validateSchema.js');
 const { encodePayload } = require('./encode.js');
 
 function createPayload(operationName, args) {
   try {
-    validate(
+    validateSchema(
       operationName, args);
   } catch (err) {
     throw err;

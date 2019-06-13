@@ -1,20 +1,20 @@
-const { validate } = require('../src/validate.js');
+const { validateSchema } = require('../src/validateSchema.js');
 
 it('checks for required arguments', function() {
   expect(() => {
-    validate();
+    validateSchema();
   }).toThrow(`Please specify a valid operation name with options.`);
 });
 
 it('checks for valid operation names', function() {
   expect(() => {
-    validate('create', {});
+    validateSchema('create', {});
   }).toThrow(`Error: invalid operation name for this token type.`);
 });
 
 it('successfully returns invalid schema warnings', function() {
   expect(() => {
-    validate('CREATE', {
+    validateSchema('CREATE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
@@ -25,7 +25,7 @@ it('successfully returns invalid schema warnings', function() {
 
 it('successfully passes valid create option', function() {
   expect(
-    validate('CREATE', {
+    validateSchema('CREATE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
@@ -35,7 +35,7 @@ it('successfully passes valid create option', function() {
 
 it('allows token type override', function() {
   expect(
-    validate('CREATE', {
+    validateSchema('CREATE', {
       tknName: 'My Test',
       tknSymbol: 'TEST',
       qty: 100,

@@ -24,7 +24,7 @@ const operationNameToSchemaMap = {
   }
 };
 
-function validate(operation, data, tknType) {
+function validateSchema(operation, data, tknType) {
   if (!data || !operation) {
     throw new Error('Please specify a valid operation name with options.');
   }
@@ -35,13 +35,13 @@ function validate(operation, data, tknType) {
     throw new Error('Error: invalid operation name for this token type.');
   }
 
-  const validateSchema = ajv.compile(operationNameToSchemaMap[tokenType][operation]);
-  const valid = validateSchema(data);
+  const schemaValidation = ajv.compile(operationNameToSchemaMap[tokenType][operation]);
+  const valid = schemaValidation(data);
 
   if (!valid) {
-    throw new Error(`Error: invalid schema for this operation: ${JSON.stringify(validateSchema.errors)}`);
+    throw new Error(`Error: invalid schema for this operation: ${JSON.stringify(schemaValidation.errors)}`);
   }
   return valid;
 }
 
-module.exports = { validate };
+module.exports = { validateSchema };
