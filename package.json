@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Token standard proposals for Algorand",
   "main": "index.js",
-  "bin": {
-    "arc1": "./cli.js"
-  },
   "scripts": {
     "test": "jest"
   },
@@ -38,8 +35,6 @@
     "jest": "^24.8.0"
   },
   "dependencies": {
-    "ajv": "^6.10.0",
-    "lodash": "^4.17.11",
-    "yargs": "^13.2.2"
+    "ajv": "^6.10.0"
   }
 }

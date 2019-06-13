@@ -4,15 +4,6 @@ const {
   createToken,
   transferToken,
 } = require('./schemas/basic');
-// const {
-//   createToken,
-//   requestTransfer,
-//   approveTransfer,
-//   denyTransfer,
-//   updateCompliance,
-//   addTokenDocument,
-//   updateDistribution,
-// } = require('./schemas/security');
 
 const TOKEN_TYPES = {
   BASIC: 'BASIC',
@@ -23,14 +14,6 @@ const operationNameToSchemaMap = {
   BASIC: {
     CREATE: createToken,
     TRANSFER: transferToken,
-  },
-  SECURITY: {
-    // REQUEST_TRANSFER: requestTransfer,
-    // APPROVE_TRANSFER: approveTransfer,
-    // DENY_TRANSFER: denyTransfer,
-    // UPDATE_COMPLIANCE: updateCompliance,
-    // ADD_DOCUMENT: addTokenDocument,
-    // UPDATE_DISTRIBUTION: updateDistribution,
   },
 };
 

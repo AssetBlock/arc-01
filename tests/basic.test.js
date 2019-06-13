@@ -1,6 +1,6 @@
 var { createBasicToken, transferBasicToken } = require('../index.js');
 
-it('creates a token', () => {
+it('creates a basic token', () => {
   expect(
     createBasicToken({
       tknSymbol: 'TEST',
@@ -16,8 +16,7 @@ it('creates a token', () => {
   });
 });
 
-
-it('transfers a token', () => {
+it('transfers a basic token', () => {
   expect(
     transferBasicToken({
       fromAddr: 'abc123',
