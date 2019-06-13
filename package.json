@@ -1,6 +1,6 @@
 {
   "name": "arc-01",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Token standard proposals for Algorand",
   "main": "index.js",
   "scripts": {
@@ -31,8 +31,12 @@
       "!**/coverage/**"
     ]
   },
+  "np": {
+    "yarn": false
+  },
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "np": "^5.0.3"
   },
   "dependencies": {
     "ajv": "^6.10.0"
