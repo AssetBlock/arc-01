@@ -1,62 +1,47 @@
-const validate = require('../src/validate.js');
+const { validateSchema } = require('../src/validateSchema.js');
 
 it('checks for required arguments', function() {
   expect(() => {
-    validate();
+    validateSchema();
   }).toThrow(`Please specify a valid operation name with options.`);
 });
 
 it('checks for valid operation names', function() {
   expect(() => {
-    validate('create', {});
+    validateSchema('create', {});
   }).toThrow(`Error: invalid operation name for this token type.`);
+});
+
+it('successfully returns invalid schema warnings', function() {
+  expect(() => {
+    validateSchema('CREATE', {
+      tknSymbol: 'TEST',
+      qty: 1000000,
+      decPlaces: 18,
+      unexpectedField: 'test',
+    })
+  }).toThrow();
 });
 
 it('successfully passes valid create option', function() {
   expect(
-    validate('CREATE', {
+    validateSchema('CREATE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
-      managers: ['JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ'],
     })
   ).toBe(true);
 });
 
-it('successfully passes valid requestTransfer option', function() {
+it('allows token type override', function() {
   expect(
-    validate('REQUEST_TRANSFER', {
+    validateSchema('CREATE', {
+      tknName: 'My Test',
       tknSymbol: 'TEST',
       qty: 100,
-      toAddr: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ',
-    })
-  ).toBe(true);
-});
-
-
-it('successfully passes valid approveTransfer option', function() {
-  expect(
-    validate('APPROVE_TRANSFER', {
-      tfrStatus: 'APPROVED',
-      tfrTotal: 100,
-      txnRef: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHW',
-      fromAddr: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ',
-      tknSymbol: 'MYT',
-    })
-  ).toBe(true);
-});
-
-
-it('successfully passes valid denyTransfer option', function() {
-  expect(
-    validate('DENY_TRANSFER', {
-      tfrStatus: 'DENIED',
-      tfrTotal: 0,
-      txnRef: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHW',
-      fromAddr: 'JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ',
-      tknSymbol: 'MYT',
-      errCode: 'ERR_01',
-
-    })
+      decPlaces: 8,
+      specLocation: 'MS3ZMFJOXJY7Z6RZR6PRYVTXCCRJ25EUZZ3Q66PWVSHD7FL2AGLA',
+      managers: ['JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ'],
+    }, 'SECURITY')
   ).toBe(true);
 });

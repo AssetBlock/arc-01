@@ -1,4 +1,4 @@
-const createToken = require('./createToken.json');
+const createSecurityToken = require('./createSecurityToken.json');
 const requestTransfer = require('./requestTransfer.json');
 const approveTransfer = require('./approveTransfer.json');
 const denyTransfer = require('./denyTransfer.json');
@@ -7,7 +7,7 @@ const addTokenDocument = require('./addTokenDocument.json');
 const updateDistribution = require('./updateDistribution.json');
 
 module.exports = {
-  createToken,
+  createSecurityToken,
   requestTransfer,
   approveTransfer,
   denyTransfer,

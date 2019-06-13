@@ -1,11 +1,8 @@
 {
   "name": "arc-01",
-  "version": "0.0.1",
-  "description": "A security token standard proposal for Algorand",
-  "main": "cli.js",
-  "bin": {
-    "arc1": "./cli.js"
-  },
+  "version": "1.0.0",
+  "description": "Token standard proposals for Algorand",
+  "main": "index.js",
   "scripts": {
     "test": "jest"
   },
@@ -25,12 +22,23 @@
     "url": "https://github.com/AssetBlock/arc-01/issues"
   },
   "homepage": "https://github.com/AssetBlock/arc-01#readme",
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ]
+  },
+  "np": {
+    "yarn": false
+  },
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "np": "^5.0.3"
   },
   "dependencies": {
-    "ajv": "^6.10.0",
-    "lodash": "^4.17.11",
-    "yargs": "^13.2.2"
+    "ajv": "^6.10.0"
   }
 }
