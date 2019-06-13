@@ -4,6 +4,10 @@ const {
   createToken,
   transferToken,
 } = require('./schemas/basic');
+const {
+  createSecurityToken,
+} = require('./schemas/security');
+
 
 const TOKEN_TYPES = {
   BASIC: 'BASIC',
@@ -15,14 +19,17 @@ const operationNameToSchemaMap = {
     CREATE: createToken,
     TRANSFER: transferToken,
   },
+  SECURITY: {
+    CREATE: createSecurityToken,
+  }
 };
 
-function validate(operation, data) {
+function validate(operation, data, tknType) {
   if (!data || !operation) {
     throw new Error('Please specify a valid operation name with options.');
   }
 
-  const tokenType = (data.tokenType) ? data.tokenType : TOKEN_TYPES.BASIC;
+  const tokenType = (tknType) ? tknType : TOKEN_TYPES.BASIC;
 
   if (!operationNameToSchemaMap[tokenType][operation]) {
     throw new Error('Error: invalid operation name for this token type.');
@@ -32,7 +39,7 @@ function validate(operation, data) {
   const valid = validateSchema(data);
 
   if (!valid) {
-    console.error(validateSchema.errors);
+    throw new Error(`Error: invalid schema for this operation: ${JSON.stringify(validateSchema.errors)}`);
   }
   return valid;
 }

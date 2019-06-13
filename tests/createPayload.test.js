@@ -1,5 +1,11 @@
 var { createPayload } = require('../src/createPayload.js');
 
+it('throws correctly', function() {
+  expect(() => {
+    createPayload('create', {})
+  }).toThrow(`Error: invalid operation name for this token type.`);
+});
+
 it('creates a token', () => {
   expect(
     createPayload('CREATE', {

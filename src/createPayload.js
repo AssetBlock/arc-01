@@ -6,7 +6,7 @@ function createPayload(operationName, args) {
     validate(
       operationName, args);
   } catch (err) {
-    return err;
+    throw err;
   }
   return encodePayload(operationName, args);
 }
