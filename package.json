@@ -1,6 +1,6 @@
 {
   "name": "@assetblock/arc-01",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Token standard proposals for Algorand",
   "publishConfig": {
     "access": "public"
