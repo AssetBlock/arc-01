@@ -4,11 +4,11 @@
   "additionalProperties": false,
   "required": ["tknSymbol", "type", "qty", "toAddr"],
   "properties": {
-    "txType": { "type": "string", "maximum": 5 },
-    "opType": { "type": "string", "maximum": 5 },
-    "tknSymbol": { "type": "string", "minimum": 3, "maximum": 5 },
+    "txType": { "type": "string", "maxLength": 5 },
+    "opType": { "type": "string", "maxLength": 5 },
+    "tknSymbol": { "type": "string", "minLength": 3, "maxLength": 5 },
     "type": {
-      "allOf": [{ "type": "string" }, { "maximum": 5 }],
+      "allOf": [{ "type": "string" }, { "maxLength": 5 }],
       "oneOf": [
         { "const": "BASIC" },
         { "const": "FORCE" },
@@ -16,7 +16,7 @@
       ]
     },
     "qty": { "type": "number", "minimum": 0 },
-    "toAddr": { "type": "string", "minimum": 58, "maximum": 58 },
+    "toAddr": { "type": "string", "minLength": 58, "maxLength": 58 },
     "meta": { "type": "object" }
   }
 }

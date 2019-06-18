@@ -1,14 +1,8 @@
-const { TRANSACTION_TYPE, NOTE_BYTE_LIMIT } = require('./lib/constants.js');
+const { NOTE_BYTE_LIMIT } = require('./lib/constants.js');
 
 function encodePayload(operation, data) {
-  const notePayload = {
-    txType: TRANSACTION_TYPE,
-    opType: operation,
-    ...data,
-  };
-
   // Stringify note for encoding
-  const jsonNote = JSON.stringify(notePayload);
+  const jsonNote = JSON.stringify(data);
 
   // Validate the size of the payload, Algorand has a hard limit of 1k.
   const noteByteSize = Buffer.byteLength(jsonNote, 'utf8');

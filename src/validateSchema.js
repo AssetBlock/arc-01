@@ -1,26 +1,35 @@
 const Ajv = require('ajv');
 const ajv = new Ajv({ allErrors: true });
 const {
+  TOKEN_TYPES
+} = require('./lib/constants');
+const {
   createToken,
   transferToken,
 } = require('./schemas/basic');
 const {
   createSecurityToken,
+  requestTransfer,
+  approveTransfer,
+  denyTransfer,
+  updateCompliance,
+  updateDistribution,
+  addTokenDocument,
 } = require('./schemas/security');
-
-
-const TOKEN_TYPES = {
-  BASIC: 'BASIC',
-  SECURITY: 'SECURITY',
-};
 
 const operationNameToSchemaMap = {
   BASIC: {
-    CREATE: createToken,
-    TRANSFER: transferToken,
+    ISSUE: createToken,
+    TNSFR: transferToken,
   },
   SECURITY: {
-    CREATE: createSecurityToken,
+    ISSUE: createSecurityToken,
+    RQTFR: requestTransfer,
+    APTFR: approveTransfer,
+    DNTFR: denyTransfer,
+    UPCMP: updateCompliance,
+    ADDOC: addTokenDocument,
+    UPDST: updateDistribution,
   }
 };
 

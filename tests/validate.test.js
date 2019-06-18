@@ -14,7 +14,7 @@ it('checks for valid operation names', function() {
 
 it('successfully returns invalid schema warnings', function() {
   expect(() => {
-    validateSchema('CREATE', {
+    validateSchema('ISSUE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
@@ -25,23 +25,10 @@ it('successfully returns invalid schema warnings', function() {
 
 it('successfully passes valid create option', function() {
   expect(
-    validateSchema('CREATE', {
+    validateSchema('ISSUE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
     })
-  ).toBe(true);
-});
-
-it('allows token type override', function() {
-  expect(
-    validateSchema('CREATE', {
-      tknName: 'My Test',
-      tknSymbol: 'TEST',
-      qty: 100,
-      decPlaces: 8,
-      specLocation: 'MS3ZMFJOXJY7Z6RZR6PRYVTXCCRJ25EUZZ3Q66PWVSHD7FL2AGLA',
-      managers: ['JSWLBGJSRIZUIAGKWSVOVEBT4PAFBYSOUZ3L32QSMCTWHWRQH2JQ'],
-    }, 'SECURITY')
   ).toBe(true);
 });

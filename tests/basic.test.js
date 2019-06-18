@@ -3,7 +3,7 @@ var { createBasicToken, transferBasicToken } = require('../index.js');
 it('creates a basic token', () => {
   const expectedPayload = {
     txType: 'ARC01',
-    opType: 'CREATE',
+    opType: 'ISSUE',
     tknSymbol: 'TEST',
     qty: 1000000,
     decPlaces: 18,
@@ -21,17 +21,17 @@ it('creates a basic token', () => {
 it('transfers a basic token', () => {
   const expectedPayload = {
     txType: 'ARC01',
-    opType: 'TRANSFER',
-    fromAddr: 'abc123',
-    toAddr: 'def456',
+    opType: 'TNSFR',
+    fromAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
+    toAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
     tknSymbol: 'TEST',
     tfrTotal: 1000,
   };
   const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
   expect(
     transferBasicToken({
-      fromAddr: 'abc123',
-      toAddr: 'def456',
+      fromAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
+      toAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
       tknSymbol: 'TEST',
       tfrTotal: 1000,
     })

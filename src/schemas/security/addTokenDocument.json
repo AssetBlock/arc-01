@@ -1,1 +1,20 @@
-{}
+{
+  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/security/addTokenDocument.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tknSymbol", "docs"],
+  "properties": {
+    "txType": { "type": "string", "maxLength": 5 },
+    "opType": { "type": "string", "maxLength": 5 },
+    "tknSymbol": { "type": "string", "minimum": 3, "maxLength": 5 },
+    "docs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": [
+        { "type": "object" }
+      ]
+    },
+    "meta": { "type": "object" }
+  }
+}
