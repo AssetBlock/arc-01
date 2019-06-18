@@ -24,10 +24,10 @@ const operationNameToSchemaMap = {
   },
   SECURITY: {
     CREATE: createSecurityToken,
-    REQUEST_TRANSFER: requestTransfer,
-    APPROVE_TRANSFER: approveTransfer,
-    DENY_TRANSFER: denyTransfer,
-    UPDATE_COMPLIANCE: updateCompliance,
+    RQTFR: requestTransfer,
+    APTFR: approveTransfer,
+    DNTFR: denyTransfer,
+    UPCMP: updateCompliance,
     ADD_DOCUMENT: updateDistribution,
     UPDATE_DISTRIBUTION: addTokenDocument,
   }

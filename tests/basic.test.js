@@ -21,7 +21,7 @@ it('creates a basic token', () => {
 it('transfers a basic token', () => {
   const expectedPayload = {
     txType: 'ARC01',
-    opType: 'TRANSFER',
+    opType: 'TNSFR',
     fromAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
     toAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
     tknSymbol: 'TEST',

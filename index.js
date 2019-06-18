@@ -16,19 +16,19 @@ function createSecurityToken(data) {
 }
 
 function requestSecurityTokenTransfer(data) {
-  return createPayload(SECURITY_OPERATION_NAMES.REQUEST_TRANSFER, data, TOKEN_TYPES.SECURITY);
+  return createPayload(SECURITY_OPERATION_NAMES.RQTFR, data, TOKEN_TYPES.SECURITY);
 }
 
 function approveSecurityTokenTransfer(data) {
-  return createPayload(SECURITY_OPERATION_NAMES.APPROVE_TRANSFER, data, TOKEN_TYPES.SECURITY);
+  return createPayload(SECURITY_OPERATION_NAMES.APTFR, data, TOKEN_TYPES.SECURITY);
 }
 
 function denySecurityTokenTransfer(data) {
-  return createPayload(SECURITY_OPERATION_NAMES.DENY_TRANSFER, data, TOKEN_TYPES.SECURITY);
+  return createPayload(SECURITY_OPERATION_NAMES.DNTFR, data, TOKEN_TYPES.SECURITY);
 }
 
 function updateSecurityTokenCompliance(data) {
-  return createPayload(SECURITY_OPERATION_NAMES.UPDATE_COMPLIANCE, data, TOKEN_TYPES.SECURITY);
+  return createPayload(SECURITY_OPERATION_NAMES.UPCMP, data, TOKEN_TYPES.SECURITY);
 }
 
 function updateSecurityTokenDistribution(data) {

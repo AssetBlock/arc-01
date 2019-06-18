@@ -4,16 +4,16 @@
   "additionalProperties": false,
   "required": ["tfrStatus", "tfrTotal", "txnRef", "fromAddr", "tknSymbol"],
   "properties": {
-    "txType": { "type": "string", "maximum": 5 },
-    "opType": { "type": "string", "maximum": 5 },
+    "txType": { "type": "string", "maxLength": 5 },
+    "opType": { "type": "string", "maxLength": 5 },
     "tfrStatus": {
       "allOf": [{ "type": "string" }],
       "oneOf": [{ "const": "APPROVED" }]
     },
     "tfrTotal": { "type": "number", "minimum": 0 },
-    "txnRef": { "type": "string", "minimum": 52, "maximum": 52 },
-    "fromAddr": { "type": "string", "minimum": 58, "maximum": 58 },
-    "tknSymbol": { "type": "string", "minimum": 3, "maximum": 5 },
+    "txnRef": { "type": "string", "minLength": 52, "maxLength": 52 },
+    "fromAddr": { "type": "string", "minLength": 58, "maxLength": 58 },
+    "tknSymbol": { "type": "string", "minLength": 3, "maxLength": 5 },
     "meta": { "type": "object" }
   }
 }
