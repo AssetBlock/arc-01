@@ -32,11 +32,11 @@ function updateSecurityTokenCompliance(data) {
 }
 
 function updateSecurityTokenDistribution(data) {
-  return createPayload(SECURITY_OPERATION_NAMES.UPDATE_DISTRIBUTION, data, TOKEN_TYPES.SECURITY);
+  return createPayload(SECURITY_OPERATION_NAMES.UPDST, data, TOKEN_TYPES.SECURITY);
 }
 
 function addSecurityTokenDocument(data) {
-  return createPayload(SECURITY_OPERATION_NAMES.ADD_DOCUMENT, data, TOKEN_TYPES.SECURITY);
+  return createPayload(SECURITY_OPERATION_NAMES.ADDOC, data, TOKEN_TYPES.SECURITY);
 }
 
 

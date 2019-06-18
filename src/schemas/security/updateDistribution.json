@@ -1,1 +1,21 @@
-{}
+{
+  "$id": "https://www.github.com/AssetBlock/arc-01/src/schemas/security/updateDistribution.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tknSymbol", "type"],
+  "properties": {
+    "txType": { "type": "string", "maxLength": 5 },
+    "opType": { "type": "string", "maxLength": 5 },
+    "tknSymbol": { "type": "string", "minLength": 3, "maxLength": 5 },
+    "type": {
+      "allOf": [{ "type": "string" }, { "maxLength": 5 }],
+      "oneOf": [
+        { "const": "SPLIT" },
+        { "const": "ISSUE_MORE_EQUITY" },
+        { "const": "BURN_AFTER_BUYBACK" }
+      ]
+    },
+    "qty": { "type": "number", "minimum": 0 },
+    "ratio": { "type": "string", "pattern": "[0-9]+:[0-9]+" }
+  }
+}

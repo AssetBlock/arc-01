@@ -17,8 +17,8 @@ const SECURITY_OPERATION_NAMES = {
   APTFR: 'APTFR', // Approve transfer
   DNTFR: 'DNTFR', // Deny transfer
   UPCMP: 'UPCMP', // Update compliance
-  ADD_DOCUMENT: 'ADD_DOCUMENT',
-  UPDATE_DISTRIBUTION: 'UPDATE_DISTRIBUTION',
+  ADDOC: 'ADDOC', // Add document
+  UPDST: 'UPDST', // Update token distribution
 };
 
 module.exports = {

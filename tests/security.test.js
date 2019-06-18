@@ -140,3 +140,43 @@ it('updates compliance', () => {
     })
   ).toEqual(expectedEncodedValue);
 });
+
+it('add document', () => {
+  const expectedPayload = {
+    txType: 'ARC01',
+    opType: 'ADDOC',
+    tknSymbol: 'MYT',
+    docs: [{
+      link: 'https://token.com/1.json',
+      hash: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
+    }],
+  };
+  const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
+  expect(
+    addSecurityTokenDocument({
+      tknSymbol: 'MYT',
+      docs: [{
+        link: 'https://token.com/1.json',
+        hash: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
+      }],
+    })
+  ).toEqual(expectedEncodedValue);
+});
+
+it('update distribution', () => {
+  const expectedPayload = {
+    txType: 'ARC01',
+    opType: 'UPDST',
+    tknSymbol: 'MYT',
+    type: 'SPLIT',
+    ratio: '3:1',
+  };
+  const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
+  expect(
+    updateSecurityTokenDistribution({
+      tknSymbol: 'MYT',
+      type: 'SPLIT',
+      ratio: '3:1',
+    })
+  ).toEqual(expectedEncodedValue);
+});

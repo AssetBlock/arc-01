@@ -28,8 +28,8 @@ const operationNameToSchemaMap = {
     APTFR: approveTransfer,
     DNTFR: denyTransfer,
     UPCMP: updateCompliance,
-    ADD_DOCUMENT: updateDistribution,
-    UPDATE_DISTRIBUTION: addTokenDocument,
+    ADDOC: addTokenDocument,
+    UPDST: updateDistribution,
   }
 };
 
