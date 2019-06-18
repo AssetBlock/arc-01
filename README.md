@@ -67,11 +67,135 @@ const txn = {
 signTransaction(txn, recoveredAccount.sk);
 ```
 
+
+
 ### Security Tokens (work in progress)
 
 The security token standard aims to create an **economy of choice** for issuers of security tokens to decide who will manage and control the compliance of their tokens by proposing a standard for compliance verification including investor validation checks, distributions, interventions, and error states all published to the Algorand blockchain.
 
-* [Security Token Schema Docs](./docs/security-tokens.md)
+* [Security Token Schema Documentation](./docs/security-tokens.md)
+
+
+### Security Token Examples
+
+#### Create new security token
+Create a security token note field payload
+
+```javascript
+import { createSecurityToken } from '@assetblock/arc-01';
+
+createSecurityToken({
+  tknName: 'TEST',
+  tknSymbol: 'ABT',
+  qty: 1000000,
+  managers: ['CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA'],
+  decPlaces: 18,
+  specLocation: 'HAPSLYCU5MICI7KJLQA5IYU2ZUIXRSJUUKGPXL6MIGJ2QNAKGL5Q',
+})
+```
+
+#### Request transfer of security tokens
+Create a security token transfer request for use in a transaction's notes payload
+
+```javascript
+import { requestSecurityTokenTransfer } from '@assetblock/arc-01';
+
+requestSecurityTokenTransfer({
+  tknSymbol: 'ABT',
+  type: 'CHECK',
+  qty: 1000,
+  toAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
+});
+```
+
+#### Approve transfer of security tokens
+Approve a security token transfer request via a transaction's notes payload
+
+```javascript
+import { approveSecurityTokenTransfer } from '@assetblock/arc-01';
+
+approveSecurityTokenTransfer({
+  tknSymbol: 'ABT',
+  tfrStatus: 'APPROVED',
+  tfrTotal: 1000,
+  fromAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
+  txnRef: 'HAPSLYCU5MICI7KJLQA5IYU2ZUIXRSJUUKGPXL6MIGJ2QNAKGL5Q',
+});
+```
+
+#### Deny transfer of security tokens
+Deny a security token transfer request via a transaction's notes payload
+
+```javascript
+import { denySecurityTokenTransfer } from '@assetblock/arc-01';
+
+denySecurityTokenTransfer({
+  tknSymbol: 'ABT',
+  tfrStatus: 'DENIED',
+  tfrTotal: 0,
+  fromAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
+  txnRef: 'HAPSLYCU5MICI7KJLQA5IYU2ZUIXRSJUUKGPXL6MIGJ2QNAKGL5Q',
+  errCode: 'NO_FUNDS'
+});
+```
+
+#### Update security token compliance details
+Update a security token's compliance profile via a transaction's notes payload
+
+```javascript
+import { updateSecurityTokenCompliance } from '@assetblock/arc-01';
+
+updateSecurityTokenCompliance({
+  tknSymbol: 'ABT',
+  managers: ['CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA'],
+  specTxn: 'HAPSLYCU5MICI7KJLQA5IYU2ZUIXRSJUUKGPXL6MIGJ2QNAKGL5Q',
+});
+```
+
+#### Add security token document
+Add a document link to a security token's profile via a transaction's notes payload
+
+```javascript
+import { addSecurityTokenDocument } from '@assetblock/arc-01';
+
+addSecurityTokenDocument({
+  tknSymbol: 'MYT',
+  docs: [{
+    link: 'https://token.com/1.json',
+    hash: '256:b5c9267b1710869e5d1c1b34de970d6594fe0010706e6b7366c42d7151728a50',
+  }],
+});
+```
+
+#### Update token distributions
+Update a security token's distribution details via a transaction's notes payload
+
+```javascript
+import { updateSecurityTokenDistribution } from '@assetblock/arc-01';
+
+// Split
+updateSecurityTokenDistribution({
+  tknSymbol: 'MYT',
+  type: 'SPLIT',
+  ratio: '3:1',
+});
+
+// Issue more equity
+updateSecurityTokenDistribution({
+  tknSymbol: 'MYT',
+  type: 'ISSUE_MORE_EQUITY',
+  qty: 10000,
+});
+
+// Burn after buyback
+updateSecurityTokenDistribution({
+  tknSymbol: 'MYT',
+  type: 'BURN_AFTER_BUYBACK',
+  qty: 2500,
+});
+
+```
+
 
 ### Important Considerations
 

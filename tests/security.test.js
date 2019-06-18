@@ -98,31 +98,6 @@ it('denies a security token transfer', () => {
   ).toEqual(expectedEncodedValue);
 });
 
-
-it('denies a security token transfer', () => {
-  const expectedPayload = {
-    txType: 'ARC01',
-    opType: 'DNTFR',
-    tknSymbol: 'ABT',
-    tfrStatus: 'DENIED',
-    tfrTotal: 0,
-    fromAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
-    txnRef: 'HAPSLYCU5MICI7KJLQA5IYU2ZUIXRSJUUKGPXL6MIGJ2QNAKGL5Q',
-    errCode: 'NO_FUNDS',
-  };
-  const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
-  expect(
-    denySecurityTokenTransfer({
-      tknSymbol: 'ABT',
-      tfrStatus: 'DENIED',
-      tfrTotal: 0,
-      fromAddr: 'CINCNAPB2RLDUCS3EVDLURZZD742TMWRQEZ4CBEWF2QMOYXMH6RWRZEIEA',
-      txnRef: 'HAPSLYCU5MICI7KJLQA5IYU2ZUIXRSJUUKGPXL6MIGJ2QNAKGL5Q',
-      errCode: 'NO_FUNDS'
-    })
-  ).toEqual(expectedEncodedValue);
-});
-
 it('updates compliance', () => {
   const expectedPayload = {
     txType: 'ARC01',
