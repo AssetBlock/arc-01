@@ -1,10 +1,13 @@
 const { validateSchema } = require('./validateSchema.js');
 const { encodePayload } = require('./encode.js');
+const { TOKEN_TYPES } = require('./lib/constants');
 
-function createPayload(operationName, args) {
+function createPayload(operationName, args, tknType) {
+  const tokenType = (tknType) ? tknType : TOKEN_TYPES.BASIC;
+
   try {
     validateSchema(
-      operationName, args);
+      operationName, args, tokenType);
   } catch (err) {
     throw err;
   }

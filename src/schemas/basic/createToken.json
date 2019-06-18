@@ -4,10 +4,10 @@
   "additionalProperties": false,
   "required": ["tknSymbol", "qty", "decPlaces"],
   "properties": {
-    "txType": { "type": "string", "maximum": 5 },
-    "opType": { "type": "string", "maximum": 5 },
-    "tknName": { "type": "string", "maximum": 16 },
-    "tknSymbol": { "type": "string", "minimum": 3, "maximum": 5 },
+    "txType": { "type": "string", "maxLength": 5 },
+    "opType": { "type": "string", "maxLength": 5 },
+    "tknName": { "type": "string", "maxLength": 16 },
+    "tknSymbol": { "type": "string", "minimum": 3, "maxLength": 5 },
     "qty": { "type": "number", "minimum": 0 },
     "decPlaces": { "type": "number", "maximum": 18 },
     "meta": { "type": "object" }
