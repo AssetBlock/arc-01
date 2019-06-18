@@ -20,7 +20,7 @@ const {
 const operationNameToSchemaMap = {
   BASIC: {
     CREATE: createToken,
-    TRANSFER: transferToken,
+    TNSFR: transferToken,
   },
   SECURITY: {
     CREATE: createSecurityToken,

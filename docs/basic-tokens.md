@@ -86,7 +86,7 @@ To transfer tokens, an issuer posts a transaction to herself with the proper all
   fee: 1,
   notes: {
     txType: 'ARC01',
-    opType: 'TRNSFR',
+    opType: 'TNSFR',
     tknSymbol: 'MYT',
     qty: 1000,
     toAddr: 'participant-address',

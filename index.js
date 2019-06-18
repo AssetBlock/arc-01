@@ -7,7 +7,7 @@ function createBasicToken(data) {
 }
 
 function transferBasicToken(data) {
-  return createPayload(BASIC_OPERATION_NAMES.TRANSFER, data)
+  return createPayload(BASIC_OPERATION_NAMES.TNSFR, data)
 }
 
 // Security Tokens
