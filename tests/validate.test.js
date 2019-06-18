@@ -14,7 +14,7 @@ it('checks for valid operation names', function() {
 
 it('successfully returns invalid schema warnings', function() {
   expect(() => {
-    validateSchema('CREATE', {
+    validateSchema('ISSUE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
@@ -25,7 +25,7 @@ it('successfully returns invalid schema warnings', function() {
 
 it('successfully passes valid create option', function() {
   expect(
-    validateSchema('CREATE', {
+    validateSchema('ISSUE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,

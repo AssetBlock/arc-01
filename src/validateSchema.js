@@ -19,11 +19,11 @@ const {
 
 const operationNameToSchemaMap = {
   BASIC: {
-    CREATE: createToken,
+    ISSUE: createToken,
     TNSFR: transferToken,
   },
   SECURITY: {
-    CREATE: createSecurityToken,
+    ISSUE: createSecurityToken,
     RQTFR: requestTransfer,
     APTFR: approveTransfer,
     DNTFR: denyTransfer,

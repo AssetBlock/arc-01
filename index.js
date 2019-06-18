@@ -3,7 +3,7 @@ const { BASIC_OPERATION_NAMES, SECURITY_OPERATION_NAMES, TOKEN_TYPES } = require
 
 // Basic Tokens
 function createBasicToken(data) {
-  return createPayload(BASIC_OPERATION_NAMES.CREATE, data);
+  return createPayload(BASIC_OPERATION_NAMES.ISSUE, data);
 }
 
 function transferBasicToken(data) {
@@ -12,7 +12,7 @@ function transferBasicToken(data) {
 
 // Security Tokens
 function createSecurityToken(data) {
-  return createPayload(SECURITY_OPERATION_NAMES.CREATE, data, TOKEN_TYPES.SECURITY);
+  return createPayload(SECURITY_OPERATION_NAMES.ISSUE, data, TOKEN_TYPES.SECURITY);
 }
 
 function requestSecurityTokenTransfer(data) {

@@ -25,7 +25,7 @@ createBasicToken({
 });
 
 // Returns:
-// {"txType":"ARC01","opType":"CREATE","tknName":"AssetBlock​ ​Token",tknSymbol":"ABT","qty":10000,"decPlaces":12}
+// {"txType":"ARC01","opType":"ISSUE","tknName":"AssetBlock​ ​Token",tknSymbol":"ABT","qty":10000,"decPlaces":12}
 ```
 
 #### Transfer Basic Token Example

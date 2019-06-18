@@ -9,14 +9,14 @@ it('throws correctly', function() {
 it('creates a token', () => {
   const expectedPayload = {
     txType: 'ARC01',
-    opType: 'CREATE',
+    opType: 'ISSUE',
     tknSymbol: 'TEST',
     qty: 1000000,
     decPlaces: 18,
   };
   const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
   expect(
-    createPayload('CREATE', {
+    createPayload('ISSUE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,

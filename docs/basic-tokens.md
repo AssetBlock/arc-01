@@ -44,7 +44,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the token
   fee: 1,
   notes: {
     txType: 'ARC01',
-    opType: 'CREATE',
+    opType: 'ISSUE',
     tknName: 'Example Token',
     tknSymbol: 'MYT',
     qty: 10000,

@@ -7,12 +7,12 @@ const TOKEN_TYPES = {
 };
 
 const BASIC_OPERATION_NAMES = {
-  CREATE: 'CREATE',
+  ISSUE: 'ISSUE',
   TNSFR: 'TNSFR',
 };
 
 const SECURITY_OPERATION_NAMES = {
-  CREATE: 'CREATE',
+  ISSUE: 'ISSUE',
   RQTFR: 'RQTFR', // Request transfer
   APTFR: 'APTFR', // Approve transfer
   DNTFR: 'DNTFR', // Deny transfer

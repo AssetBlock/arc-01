@@ -11,7 +11,7 @@ var {
 it('creates a security token', () => {
   const expectedPayload = {
     txType: 'ARC01',
-    opType: 'CREATE',
+    opType: 'ISSUE',
     tknName: 'TEST',
     tknSymbol: 'ABT',
     qty: 1000000,

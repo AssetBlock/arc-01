@@ -3,7 +3,7 @@ const OVERSIZED_STRING = 'Lorem ipsum dolor sit amet, consectetur adipiscing eli
 
 it('prevents oversized notes field', () => {
   expect(() => {
-    encodePayload('CREATE', {
+    encodePayload('ISSUE', {
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,
@@ -17,14 +17,16 @@ it('prevents oversized notes field', () => {
 it('allows notes field within size limit', () => {
   const expectedPayload = {
     txType: 'ARC01',
-    opType: 'CREATE',
+    opType: 'ISSUE',
     tknSymbol: 'TEST',
     qty: 1000000,
     decPlaces: 18,
   };
   const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
   expect(
-    encodePayload('CREATE', {
+    encodePayload('ISSUE', {
+      txType: 'ARC01',
+      opType: 'ISSUE',
       tknSymbol: 'TEST',
       qty: 1000000,
       decPlaces: 18,

@@ -3,7 +3,7 @@ var { createBasicToken, transferBasicToken } = require('../index.js');
 it('creates a basic token', () => {
   const expectedPayload = {
     txType: 'ARC01',
-    opType: 'CREATE',
+    opType: 'ISSUE',
     tknSymbol: 'TEST',
     qty: 1000000,
     decPlaces: 18,
