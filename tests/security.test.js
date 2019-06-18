@@ -163,7 +163,7 @@ it('add document', () => {
   ).toEqual(expectedEncodedValue);
 });
 
-it('update distribution', () => {
+it('update distribution : SPLIT', () => {
   const expectedPayload = {
     txType: 'ARC01',
     opType: 'UPDST',
@@ -177,6 +177,24 @@ it('update distribution', () => {
       tknSymbol: 'MYT',
       type: 'SPLIT',
       ratio: '3:1',
+    })
+  ).toEqual(expectedEncodedValue);
+});
+
+it('update distribution : ISSUE_MORE_EQUITY', () => {
+  const expectedPayload = {
+    txType: 'ARC01',
+    opType: 'UPDST',
+    tknSymbol: 'MYT',
+    type: 'ISSUE_MORE_EQUITY',
+    qty: 10000
+  };
+  const expectedEncodedValue = new Uint8Array(Buffer.from(JSON.stringify(expectedPayload)));
+  expect(
+    updateSecurityTokenDistribution({
+      tknSymbol: 'MYT',
+      type: 'ISSUE_MORE_EQUITY',
+      qty: 10000,
     })
   ).toEqual(expectedEncodedValue);
 });

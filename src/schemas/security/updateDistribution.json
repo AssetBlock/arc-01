@@ -8,7 +8,7 @@
     "opType": { "type": "string", "maxLength": 5 },
     "tknSymbol": { "type": "string", "minLength": 3, "maxLength": 5 },
     "type": {
-      "allOf": [{ "type": "string" }, { "maxLength": 5 }],
+      "allOf": [{ "type": "string" }],
       "oneOf": [
         { "const": "SPLIT" },
         { "const": "ISSUE_MORE_EQUITY" },
@@ -16,6 +16,13 @@
       ]
     },
     "qty": { "type": "number", "minimum": 0 },
-    "ratio": { "type": "string", "pattern": "[0-9]+:[0-9]+" }
+    "ratio": { "type": "string", "pattern": "[0-9]+:[0-9]+" },
+    "if": {
+      "properties": {
+        "type": { "const": "SPLIT" }
+      }
+    },
+    "then": { "required": [ "ratio" ] },
+    "else": { "required": [ "qty" ] }
   }
 }
