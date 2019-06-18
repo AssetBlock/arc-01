@@ -50,7 +50,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
 | --------- | ------ | -------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txType    | String | true     | `length <=5`                                       | Unique standard identifier.                                                                                                                                             |
 | opType    | String | true     | `length <=5`                                       | Operation type outlined by standard.                                                                                                                                    |
-| tknName   | String | false    | `length <=26`                                      | The name of the token                                                                                                                                                   |
+| tknName   | String | false    | `length <=16`                                      | The name of the token                                                                                                                                                   |
 | tknSymbol | String | true     | `length >= 3 && <= 5`                              | The symbol of the token for exchange and unique identification purposes                                                                                                 |
 | qty       | Number | true     | `> 0`                                              | Total tokens available at initial offering                                                                                                                              |
 | decPlaces | Number | false    | `length<= 18`                                      | Number of decimal places to honor                                                                                                                                       |
@@ -69,7 +69,7 @@ To mint a new token, an issuer creates a "genesis transaction" wherein the compl
   fee: 1,
   notes: {
     txType: 'ARC01',
-    opType: 'ISSUE',
+    opType: 'CREATE',
     tknName: 'MyToken',
     tknSymbol: 'MYT',
     qty: 10000,
@@ -119,7 +119,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   fee: 1,
   notes: {
     txType: 'ARC01',
-    opType: 'TRSFR',
+    opType: 'RQTFR',
     qty: 50,
     type: 'CHECK',
     toAddr: 'investor2-address',
@@ -158,7 +158,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   fee: 1,
   notes: {
     txType: 'ARC01',
-    opType: 'APROV',
+    opType: 'APTFR',
     tfrStatus: 'APPROVED',
     tfrTotal: 50,
     txnRef: `transaction-id-of-transfer-request`
@@ -195,7 +195,7 @@ In order to issue or transfer tokens the issuer or investor must indicate to a s
   fee: 1,
   notes: {
     txType: 'ARC01',
-    opType: 'DENY',
+    opType: 'DNTFR',
     tfrStatus: 'DENIED',
     txnRef: `transaction-id-of-transfer-request`
     tfrTotal: 0,
